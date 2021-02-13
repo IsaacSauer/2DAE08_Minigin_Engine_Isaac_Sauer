@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{ef84315e-f827-41e0-aa6d-2f1686862161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Core">
+      <UniqueIdentifier>{09c499ad-d380-4e9a-b7a1-8be2337439ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Types">
+      <UniqueIdentifier>{5dae6236-688d-46e5-b479-7a3a6679be8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\GameObject">
+      <UniqueIdentifier>{8733a88f-8777-4e87-8ee0-5e4245fed19c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Scene">
+      <UniqueIdentifier>{a248fcc3-b761-4049-b272-74242318e666}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components">
+      <UniqueIdentifier>{04959c78-6816-4d4d-82b3-a32ab1e78bcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components\TextureComponent">
+      <UniqueIdentifier>{2760eb51-4b0e-4ec2-95dd-f7e096134972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components\TextComponent">
+      <UniqueIdentifier>{f6a16042-0ca3-4e60-86b7-78e4f5321166}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components\RenderComponent">
+      <UniqueIdentifier>{d4b29bea-dc01-4ee4-8e7b-79924bed9726}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components\FPSComponent">
+      <UniqueIdentifier>{f7945b65-f65b-4c10-8fbe-8903143d3424}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\MonoBehavior">
+      <UniqueIdentifier>{2e72b0b2-48c0-4b0c-afe2-ed4fcfa80dad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Managers">
+      <UniqueIdentifier>{83bf1dde-1d11-4a8a-9f2a-96a4f94f4ce4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MiniginPCH.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MonoBehavior.h">
+      <Filter>Source Files\Engine\MonoBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneObject.h">
+      <Filter>Source Files\Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Source Files\Engine\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Source Files\Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
+      <Filter>Source Files\Engine\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Source Files\Engine\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="TextObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Source Files\Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureComponent.h">
+      <Filter>Source Files\Engine\Components\TextureComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Source Files\Engine\Components\TextComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSComponent.h">
+      <Filter>Source Files\Engine\Components\FPSComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Minigin.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent2D.h">
+      <Filter>Source Files\Engine\Components\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MiniginPCH.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MonoBehavior.cpp">
+      <Filter>Source Files\Engine\MonoBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Source Files\Engine\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2D.cpp">
+      <Filter>Source Files\Engine\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source Files\Engine\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="TextObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureComponent.cpp">
+      <Filter>Source Files\Engine\Components\TextureComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="TextComponent.cpp">
+      <Filter>Source Files\Engine\Components\TextComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSComponent.cpp">
+      <Filter>Source Files\Engine\Components\FPSComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Minigin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponent2D.cpp">
+      <Filter>Source Files\Engine\Components\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
