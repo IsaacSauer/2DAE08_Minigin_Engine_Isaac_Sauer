@@ -10,8 +10,6 @@ namespace dae
 		virtual void FixedUpdate(){};
 		virtual void Update() {};
 		virtual void LateUpdate() {};
-
-		virtual void Render() const{};
 	public:
 		MonoBehavior() = default; //Awake
 		MonoBehavior(bool isRenderComponent) :m_IsRenderComponent{ isRenderComponent } {} //Awake

@@ -12,7 +12,7 @@ namespace dae
 	public:
 		void RequestRender(std::shared_ptr<Texture2D> tex) { m_sTextureToRender = tex; }
 
-		void Render() const override;
+		void Render() const;
 	public:
 		RenderComponent2D();
 		RenderComponent2D(std::shared_ptr<Texture2D> componentToRender);
