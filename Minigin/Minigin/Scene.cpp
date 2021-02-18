@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "RenderComponent2D.h"
+#include "RenderComponentUI.h"
 
 using namespace dae;
 
@@ -48,8 +49,16 @@ void Scene::Render() const
 {
 	for (const auto& object : m_Objects)
 	{
-		auto renderComponents = object.second->GetAllComponentsOfType<RenderComponent2D>();
-		for (const auto element : renderComponents)
+		//RenderComponents2D
+		auto renderComponents2D = object.second->GetAllComponentsOfType<RenderComponent2D>();
+		for (const auto element : renderComponents2D)
+		{
+			element->Render();
+		}
+		
+		//RenderComponentsUI
+		auto renderComponentsUI = object.second->GetAllComponentsOfType<RenderComponentUI>();
+		for (const auto element : renderComponentsUI)
 		{
 			element->Render();
 		}

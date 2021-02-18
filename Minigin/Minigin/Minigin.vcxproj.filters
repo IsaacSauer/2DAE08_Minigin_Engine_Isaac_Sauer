@@ -31,34 +31,49 @@
     <Filter Include="Source Files\Engine\Components">
       <UniqueIdentifier>{04959c78-6816-4d4d-82b3-a32ab1e78bcb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine\Components\TextureComponent">
-      <UniqueIdentifier>{2760eb51-4b0e-4ec2-95dd-f7e096134972}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\Components\TextComponent">
-      <UniqueIdentifier>{f6a16042-0ca3-4e60-86b7-78e4f5321166}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\Components\RenderComponent">
-      <UniqueIdentifier>{d4b29bea-dc01-4ee4-8e7b-79924bed9726}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\Components\FPSComponent">
-      <UniqueIdentifier>{f7945b65-f65b-4c10-8fbe-8903143d3424}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\MonoBehavior">
-      <UniqueIdentifier>{2e72b0b2-48c0-4b0c-afe2-ed4fcfa80dad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Engine\Managers">
       <UniqueIdentifier>{83bf1dde-1d11-4a8a-9f2a-96a4f94f4ce4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components\MonoBehavior">
+      <UniqueIdentifier>{2e72b0b2-48c0-4b0c-afe2-ed4fcfa80dad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components\InheritedComponents">
+      <UniqueIdentifier>{90d981ba-4b33-428c-99d7-b845e3537a2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components\InheritedComponents\FPSComponent">
+      <UniqueIdentifier>{f7945b65-f65b-4c10-8fbe-8903143d3424}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components\InheritedComponents\TextureComponent">
+      <UniqueIdentifier>{2760eb51-4b0e-4ec2-95dd-f7e096134972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components\InheritedComponents\TextComponent">
+      <UniqueIdentifier>{f6a16042-0ca3-4e60-86b7-78e4f5321166}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components\InheritedComponents\RenderComponent">
+      <UniqueIdentifier>{d4b29bea-dc01-4ee4-8e7b-79924bed9726}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Input">
+      <UniqueIdentifier>{0b3f217c-2c1a-462e-935a-5e603215826c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ImGui">
+      <UniqueIdentifier>{b0f3c37a-416a-4c4a-b9a2-3038c394ee4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components\InheritedComponents\UIComponent">
+      <UniqueIdentifier>{b300b35f-4d25-48b9-b94b-e4790e1a0174}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\UIElements">
+      <UniqueIdentifier>{58b92346-3eb1-4691-9f69-122e21a90797}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\UIElements\InheritedElements">
+      <UniqueIdentifier>{b00b857e-d327-4f47-ada6-efc7390e7b0c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MonoBehavior.h">
-      <Filter>Source Files\Engine\MonoBehavior</Filter>
+      <Filter>Source Files\Engine\Components\MonoBehavior</Filter>
     </ClInclude>
     <ClInclude Include="SceneObject.h">
       <Filter>Source Files\Engine\GameObject</Filter>
@@ -82,19 +97,19 @@
       <Filter>Source Files\Engine\Scene</Filter>
     </ClInclude>
     <ClInclude Include="TextureComponent.h">
-      <Filter>Source Files\Engine\Components\TextureComponent</Filter>
+      <Filter>Source Files\Engine\Components\InheritedComponents\TextureComponent</Filter>
     </ClInclude>
     <ClInclude Include="TextComponent.h">
-      <Filter>Source Files\Engine\Components\TextComponent</Filter>
+      <Filter>Source Files\Engine\Components\InheritedComponents\TextComponent</Filter>
     </ClInclude>
     <ClInclude Include="FPSComponent.h">
-      <Filter>Source Files\Engine\Components\FPSComponent</Filter>
+      <Filter>Source Files\Engine\Components\InheritedComponents\FPSComponent</Filter>
     </ClInclude>
     <ClInclude Include="Minigin.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="RenderComponent2D.h">
-      <Filter>Source Files\Engine\Components\RenderComponent</Filter>
+      <Filter>Source Files\Engine\Components\InheritedComponents\RenderComponent</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Source Files\Engine\Managers</Filter>
@@ -111,13 +126,55 @@
     <ClInclude Include="Timer.h">
       <Filter>Source Files\Engine\Managers</Filter>
     </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Source Files\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Source Files\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.81\imconfig.h">
+      <Filter>Source Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.81\imgui.h">
+      <Filter>Source Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.81\imgui_internal.h">
+      <Filter>Source Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.81\imstb_rectpack.h">
+      <Filter>Source Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.81\imstb_textedit.h">
+      <Filter>Source Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.81\imstb_truetype.h">
+      <Filter>Source Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.81\backends\imgui_impl_opengl2.h">
+      <Filter>Source Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.81\backends\imgui_impl_sdl.h">
+      <Filter>Source Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponentUI.h">
+      <Filter>Source Files\Engine\Components\InheritedComponents\UIComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElement.h">
+      <Filter>Source Files\Engine\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h">
+      <Filter>Source Files\Engine\UIElements\InheritedElements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MonoBehavior.cpp">
-      <Filter>Source Files\Engine\MonoBehavior</Filter>
+      <Filter>Source Files\Engine\Components\MonoBehavior</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
@@ -141,19 +198,19 @@
       <Filter>Source Files\Engine\Scene</Filter>
     </ClCompile>
     <ClCompile Include="TextureComponent.cpp">
-      <Filter>Source Files\Engine\Components\TextureComponent</Filter>
+      <Filter>Source Files\Engine\Components\InheritedComponents\TextureComponent</Filter>
     </ClCompile>
     <ClCompile Include="TextComponent.cpp">
-      <Filter>Source Files\Engine\Components\TextComponent</Filter>
+      <Filter>Source Files\Engine\Components\InheritedComponents\TextComponent</Filter>
     </ClCompile>
     <ClCompile Include="FPSComponent.cpp">
-      <Filter>Source Files\Engine\Components\FPSComponent</Filter>
+      <Filter>Source Files\Engine\Components\InheritedComponents\FPSComponent</Filter>
     </ClCompile>
     <ClCompile Include="Minigin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RenderComponent2D.cpp">
-      <Filter>Source Files\Engine\Components\RenderComponent</Filter>
+      <Filter>Source Files\Engine\Components\InheritedComponents\RenderComponent</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Engine\Managers</Filter>
@@ -169,6 +226,42 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Source Files\Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Source Files\Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Source Files\Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.81\imgui.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.81\imgui_demo.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.81\imgui_draw.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.81\imgui_tables.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.81\imgui_widgets.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.81\backends\imgui_impl_opengl2.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.81\backends\imgui_impl_sdl.cpp">
+      <Filter>Source Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponentUI.cpp">
+      <Filter>Source Files\Engine\Components\InheritedComponents\UIComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElement.cpp">
+      <Filter>Source Files\Engine\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButton.cpp">
+      <Filter>Source Files\Engine\UIElements\InheritedElements</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

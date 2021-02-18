@@ -1,5 +1,6 @@
 #pragma once
 #include <chrono>
+
 struct SDL_Window;
 namespace dae
 {

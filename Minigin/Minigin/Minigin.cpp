@@ -11,10 +11,12 @@
 #include "FPSComponent.h"
 #include "GameObject.h"
 #include "RenderComponent2D.h"
+#include "RenderComponentUI.h"
 #include "Scene.h"
 #include "TextComponent.h"
 #include "TextureComponent.h"
 #include "Timer.h"
+#include "UIButton.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -40,6 +42,19 @@ void dae::Minigin::Initialize()
 	}
 
 	Renderer::GetInstance().Init(m_Window);
+
+	//Initialize Controller
+	auto& input = InputManager::GetInstance();
+
+	int id = input.AddController();
+	input.AddCommand(InputManager::ControllerKey(id, Controller::ControllerButton::PAD_A,
+		Controller::ButtonState::REPEAT), Command(Fire));
+	input.AddCommand(InputManager::ControllerKey(id, Controller::ControllerButton::PAD_B,
+		Controller::ButtonState::KEYUP), Command(Duck));
+	input.AddCommand(InputManager::ControllerKey(id, Controller::ControllerButton::PAD_Y,
+		Controller::ButtonState::KEYDOWN), Command(Jump));
+	input.AddCommand(InputManager::ControllerKey(id, Controller::ControllerButton::PAD_X,
+		Controller::ButtonState::KEYDOWN), Command(Fart));
 }
 
 /**
@@ -86,15 +101,20 @@ void dae::Minigin::LoadGame() const
 	FPSComp->SetTextComponent(textComp);
 	go->AddComponent(FPSComp);
 	scene.Add(go);
-	
 	pos.SetPosition(0, 0, 0);
-	//go = std::make_shared<GameObject>();
-	//scene.Add(go);
+	
+	InputManager::GetInstance().AddCommand(InputManager::ControllerKey(0, Controller::ControllerButton::PAD_LTRIGGER,
+		Controller::ButtonState::KEYDOWN), CommandToObject(ChangeText, go));
 
-	//auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	//auto to = std::make_shared<TextObject>("Programming 4 Assignment", font);
-	//to->SetPosition(80, 20);
-	//scene.Add(to);
+	//MainMenu
+	go = std::make_shared<GameObject>("MainMenu");
+	auto uiComp = std::make_shared<RenderComponentUI>();
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.4 }, Command(Fire), "Fire"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.5 }, Command(Fart), "Fart"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.6 }, Command(Jump), "Jump"));
+	go->AddComponent(uiComp);
+	scene.Add(go);
+	
 }
 
 void dae::Minigin::Cleanup()
@@ -134,7 +154,9 @@ void dae::Minigin::Run()
 			TIMER.SetDeltaTime(deltaTime);
 
 			doContinue = input.ProcessInput();
-
+			if (input.IsButtonPressed(Controller::ControllerButton::PAD_BACK, 0))
+				doContinue = false;
+			
 			while(lag >= MsPerUpdate)
 			{
 				sceneManager.FixedUpdate();
