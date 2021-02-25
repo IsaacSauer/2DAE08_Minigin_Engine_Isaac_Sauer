@@ -25,7 +25,3 @@ void HealthObserverComponent::OnNotify(std::shared_ptr<dae::GameObject> go, int 
 		}
 	}
 }
-
-HealthObserverComponent::~HealthObserverComponent()
-{
-}

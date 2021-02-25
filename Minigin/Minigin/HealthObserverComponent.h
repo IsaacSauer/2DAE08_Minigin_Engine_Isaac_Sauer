@@ -13,7 +13,7 @@ public:
 	
 public:
 	HealthObserverComponent() = default;
-	virtual ~HealthObserverComponent() override;
+	virtual ~HealthObserverComponent() override = default;
 	HealthObserverComponent(const HealthObserverComponent& other) = delete;
 	HealthObserverComponent(HealthObserverComponent&& other) = delete;
 	HealthObserverComponent& operator=(const HealthObserverComponent& rhs) = delete;
