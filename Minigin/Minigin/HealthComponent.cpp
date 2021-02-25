@@ -41,7 +41,7 @@ void dae::HealthComponent::EvaluateHealth()
 {
 	if (m_Health <= 0)
 	{
-		Notify(PARENT->shared_from_this(), HealthState::DIED);
+		Notify(PARENT->shared_from_this(), int(HealthState::DIED));
 
 		m_Health = m_MaxHealth;
 		--m_Lives;
