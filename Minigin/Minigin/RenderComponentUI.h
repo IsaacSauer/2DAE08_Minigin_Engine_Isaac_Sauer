@@ -24,7 +24,7 @@ namespace dae
 		const RenderComponentUI& operator=(const RenderComponentUI& other) = delete;
 		const RenderComponentUI& operator=(RenderComponentUI&& other) = delete;
 	private:
-		ImGuiWindowFlags m_Flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings;
+		ImGuiWindowFlags m_Flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoBackground;
 		bool m_Use_Work_Area = true;
 		std::string m_Name{"Placeholder"};
 

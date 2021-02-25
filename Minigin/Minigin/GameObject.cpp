@@ -8,6 +8,11 @@ unsigned int dae::GameObject::m_GameObjectIdCounter = 0;
 
 dae::GameObject::~GameObject() = default;
 
+std::shared_ptr<dae::GameObject> dae::GameObject::GetShared()
+{
+	return shared_from_this();
+}
+
 bool dae::GameObject::AddComponent(std::shared_ptr<MonoBehavior> component)
 {
 	if(component)

@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "GameObject.h"
+#include "HealthComponent.h"
 #include "TextComponent.h"
 
 class Command
@@ -64,5 +65,18 @@ public:
 	void Execute() override
 	{
 		GetGameObject().lock()->GetComponentOfType<dae::TextComponent>()->SetText("LOOLOLOL");
+	}
+};
+class Kill final : public Command
+{
+public:
+	Kill(std::weak_ptr<dae::GameObject> targetObj) :Command(targetObj) {};
+
+	void Execute() override
+	{
+		if(auto health = GetGameObject().lock()->GetComponentOfType<dae::HealthComponent>())
+		{
+			health->SetHealth(-1.f);
+		}
 	}
 };

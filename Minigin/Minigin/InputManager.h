@@ -12,7 +12,8 @@ namespace dae
 	{
 	public:
 		using ControllerKeyType = std::pair<unsigned, std::pair<Controller::ControllerButton, Controller::ButtonState>>;
-		using ControllerCommandsMap = std::map<ControllerKeyType, std::unique_ptr<Command>>;
+		using CommandState = std::pair<std::unique_ptr<Command>, bool>;
+		using ControllerCommandsMap = std::map<ControllerKeyType, CommandState>;
 
 		bool ProcessInput();
 		bool IsButtonDown(Controller::ControllerButton button, UINT controllerId = 0) const;
@@ -56,7 +57,12 @@ inline bool dae::InputManager::AddCommand(ControllerKeyType key, std::unique_ptr
 	}
 
 	//assign command
-	auto result = m_ControllerCommands.insert(std::make_pair(key, std::move(upCommand)));
+	auto result = m_ControllerCommands.insert(
+		std::make_pair(
+				std::make_pair(key.first, key.second),
+				std::make_pair<std::unique_ptr<Command>, bool>(std::move(upCommand), false)
+			)
+		);
 
 	std::cout << "Binding of command \"" + std::string(typeid(T).name()) + "\" " + (result.second ? "succeeded" : "failed") + "!\n";
 

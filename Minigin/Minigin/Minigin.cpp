@@ -10,6 +10,7 @@
 
 #include "FPSComponent.h"
 #include "GameObject.h"
+#include "HealthObserverComponent.h"
 #include "RenderComponent2D.h"
 #include "RenderComponentUI.h"
 #include "Scene.h"
@@ -106,14 +107,35 @@ void dae::Minigin::LoadGame() const
 	InputManager::GetInstance().AddCommand(InputManager::ControllerKey(0, Controller::ControllerButton::PAD_LTRIGGER,
 		Controller::ButtonState::KEYDOWN), CommandToObject(ChangeText, go));
 
+	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x / 2, RENDERER.GetCurrentWindowDimensions().y / 4, 0);
+	//Health Observer (renderComp2D, TextComp, HealthObserver -> Attach to QBert)
+	go = std::make_shared<GameObject>("QBertHealthObserver");
+	go->AddComponent(std::make_shared<RenderComponent2D>());
+	textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 20));
+	textComp->SetText("PlayerAlive");
+	go->AddComponent(textComp);
+	auto healthObsComp = std::make_shared<HealthObserverComponent>();
+	healthObsComp->SetTextComponent(textComp);
+	go->AddComponent(healthObsComp);
+	go->SetTransform(pos);
+	scene.Add(go);
+
+	//QBert (health comp)
+	go = std::make_shared<GameObject>("QBert");
+	auto healthComp = std::make_shared<HealthComponent>();
+	healthComp->AddObserver(healthObsComp);
+	go->AddComponent(healthComp);
+	scene.Add(go);
+
 	//MainMenu
-	go = std::make_shared<GameObject>("MainMenu");
+	auto mainMenu = std::make_shared<GameObject>("MainMenu");
 	auto uiComp = std::make_shared<RenderComponentUI>();
 	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.4 }, Command(Fire), "Fire"));
 	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.5 }, Command(Fart), "Fart"));
 	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.6 }, Command(Jump), "Jump"));
-	go->AddComponent(uiComp);
-	scene.Add(go);
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.7 }, CommandToObject(Kill, go), "Kill"));
+	mainMenu->AddComponent(uiComp);
+	scene.Add(mainMenu);
 	
 }
 

@@ -67,6 +67,21 @@
     <Filter Include="Source Files\Engine\UIElements\InheritedElements">
       <UniqueIdentifier>{b00b857e-d327-4f47-ada6-efc7390e7b0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Components\InheritedComponents\QBertComponent">
+      <UniqueIdentifier>{1a1f9b87-0462-40c1-a5e2-f5ce47b40614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components\InheritedComponents\HealthComponent">
+      <UniqueIdentifier>{a3f85e8c-5b7a-4f47-8fc2-cdd1c8a81897}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Observer">
+      <UniqueIdentifier>{e98744d3-29a3-4fbe-bf58-73eaf9e7b589}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\InheritEnum">
+      <UniqueIdentifier>{df7192e7-3041-4fda-ad9f-c2847a6788c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Components\InheritedComponents\HealthObserverComponent">
+      <UniqueIdentifier>{c5ad7881-ced9-4722-ae0e-3edb0e28e597}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -168,6 +183,21 @@
     <ClInclude Include="UIButton.h">
       <Filter>Source Files\Engine\UIElements\InheritedElements</Filter>
     </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>Source Files\Engine\Components\InheritedComponents\HealthComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Source Files\Engine\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="InheritEnum.h">
+      <Filter>Source Files\Engine\InheritEnum</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Source Files\Engine\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthObserverComponent.h">
+      <Filter>Source Files\Engine\Components\InheritedComponents\HealthObserverComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -262,6 +292,21 @@
     </ClCompile>
     <ClCompile Include="UIButton.cpp">
       <Filter>Source Files\Engine\UIElements\InheritedElements</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthComponent.cpp">
+      <Filter>Source Files\Engine\Components\InheritedComponents\HealthComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Source Files\Engine\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="InheritEnum.cpp">
+      <Filter>Source Files\Engine\InheritEnum</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Source Files\Engine\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthObserverComponent.cpp">
+      <Filter>Source Files\Engine\Components\InheritedComponents\HealthObserverComponent</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -17,16 +17,26 @@ bool dae::InputManager::ProcessInput()
 		switch (command.first.second.second)
 		{
 		case Controller::ButtonState::REPEAT:
-			if (IsButtonDown(command.first.second.first, command.first.first))
-				command.second->Execute();
+			if (IsButtonReleased(command.first.second.first, command.first.first))
+				command.second.second = false;
+			if (IsButtonPressed(command.first.second.first, command.first.first))
+				command.second.second = true;
+			if(command.second.second)
+				command.second.first->Execute();
 			break;
 		case Controller::ButtonState::KEYDOWN:
 			if (IsButtonPressed(command.first.second.first, command.first.first))
-				command.second->Execute();
+			{
+				command.second.second = true;
+				command.second.first->Execute();
+			}
 			break;
 		case Controller::ButtonState::KEYUP:
 			if (IsButtonReleased(command.first.second.first, command.first.first))
-				command.second->Execute();
+			{
+				command.second.second = false;
+				command.second.first->Execute();
+			}
 			break;
 		}
 	}
@@ -57,6 +67,7 @@ bool dae::InputManager::IsButtonDown(Controller::ControllerButton button, UINT c
 	}
 
 	// todo done: return whether the given button is pressed or not.
+	
 	return m_Controllers.at(controllerId)->IsDown(button);
 }
 

@@ -5,46 +5,14 @@
 
 void Controller::ProcessInput()
 {
-	RtlSecureZeroMemory(&m_ControllerInputState, sizeof(XINPUT_STATE));
-	XInputGetState(id, &m_ControllerInputState);
-
 	RtlSecureZeroMemory(&m_ControllerKeyStroke, sizeof(XINPUT_KEYSTROKE));
 	XInputGetKeystroke(id, 0, &m_ControllerKeyStroke);
 }
 
 bool Controller::IsDown(ControllerButton button) const
 {
-	switch (button)
-	{
-	case ControllerButton::PAD_A:
-		return m_ControllerInputState.Gamepad.wButtons & XINPUT_GAMEPAD_A;
-	case ControllerButton::PAD_B:
-		return m_ControllerInputState.Gamepad.wButtons & XINPUT_GAMEPAD_B;
-	case ControllerButton::PAD_X:
-		return m_ControllerInputState.Gamepad.wButtons & XINPUT_GAMEPAD_Y;
-	case ControllerButton::PAD_Y:
-		return m_ControllerInputState.Gamepad.wButtons & XINPUT_GAMEPAD_X;
-	case ControllerButton::PAD_RSHOULDER:
-		return m_ControllerInputState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER;
-	case ControllerButton::PAD_LSHOULDER:
-		return m_ControllerInputState.Gamepad.wButtons & XINPUT_GAMEPAD_LEFT_SHOULDER;
-	case ControllerButton::PAD_DPAD_UP:
-		return m_ControllerInputState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP;
-	case ControllerButton::PAD_DPAD_DOWN:
-		return m_ControllerInputState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN;
-	case ControllerButton::PAD_DPAD_LEFT:
-		return m_ControllerInputState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_LEFT;
-	case ControllerButton::PAD_DPAD_RIGHT:
-		return m_ControllerInputState.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_RIGHT;
-	case ControllerButton::PAD_START:
-		return m_ControllerInputState.Gamepad.wButtons & XINPUT_GAMEPAD_START;
-	case ControllerButton::PAD_BACK:
-		return m_ControllerInputState.Gamepad.wButtons & XINPUT_GAMEPAD_BACK;
-	case ControllerButton::PAD_LTHUMB_PRESS:
-		return m_ControllerInputState.Gamepad.wButtons & XINPUT_GAMEPAD_LEFT_THUMB;
-	case ControllerButton::PAD_RTHUMB_PRESS:
-		return m_ControllerInputState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_THUMB;
-	}
+	if (m_ControllerKeyStroke.Flags == XINPUT_KEYSTROKE_REPEAT)
+		return CheckState(button);
 	return false;
 }
 
@@ -65,4 +33,38 @@ bool Controller::IsReleased(ControllerButton button) const
 bool Controller::CheckState(ControllerButton button) const
 {
 	return m_ControllerKeyStroke.VirtualKey == (int)button;
+}
+
+Controller::Button::Button(UINT controllerID, Controller::ControllerButton button, Controller::ButtonState state)
+	:m_ControllerID{ controllerID }
+	, m_Button{ button }
+	, m_State(state)
+{
+}
+
+Controller::ControllerButton Controller::Button::GetButton() const
+{
+	return m_Button;
+}
+
+Controller::ButtonState Controller::Button::GetState() const
+{
+	return m_State;
+}
+
+UINT Controller::Button::GetControllerID() const
+{
+	return m_ControllerID;
+}
+
+bool Controller::Button::IsDown() const
+{
+	return m_IsDown;
+}
+
+bool Controller::Button::operator<(const Button& rhs) const
+{
+	return m_ControllerID < rhs.m_ControllerID
+	|| m_Button < rhs.m_Button
+	|| m_State < rhs.m_State;
 }

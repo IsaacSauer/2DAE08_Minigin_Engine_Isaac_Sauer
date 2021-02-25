@@ -5,7 +5,7 @@
 namespace dae
 {
 	class MonoBehavior;
-	class GameObject final
+	class GameObject final : public std::enable_shared_from_this<GameObject>
 	{
 		friend class Scene;
 	public:
@@ -20,6 +20,8 @@ namespace dae
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
+
+		std::shared_ptr<GameObject> GetShared();
 	public:
 		bool AddComponent(std::shared_ptr<MonoBehavior> component);
 
