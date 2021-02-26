@@ -28,7 +28,7 @@ void dae::Subject::RemoveObserver(const std::weak_ptr<dae::Observer>& observer)
     }
 }
 
-void dae::Subject::Notify(std::shared_ptr<dae::GameObject> go, int event)
+void dae::Subject::Notify(std::shared_ptr<dae::GameObject> go, std::shared_ptr<EventAttributes> event)
 {
 	for(auto& curObserver : m_Observers)
 	{

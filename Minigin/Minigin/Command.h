@@ -80,3 +80,20 @@ public:
 		}
 	}
 };
+class Respawn final : public Command
+{
+public:
+	Respawn(std::weak_ptr<dae::GameObject> targetObj) :Command(targetObj) {};
+
+	void Execute() override
+	{
+		if(auto health = GetGameObject().lock()->GetComponentOfType<dae::HealthComponent>())
+		{
+			if(health->GetHealth() <= 0.f && health->GetLives() > 0)
+			{
+				health->SetHealth(health->GetMaxHealth());
+				health->AddLives(-1);
+			}
+		}
+	}
+};

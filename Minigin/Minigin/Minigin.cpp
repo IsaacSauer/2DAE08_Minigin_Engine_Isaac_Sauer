@@ -88,7 +88,7 @@ void dae::Minigin::LoadGame() const
 	go->AddComponent(std::make_shared<RenderComponent2D>());
 	go->AddComponent(std::make_shared<TextureComponent>(RESOURCEMANAGER.LoadTexture("logo.png")));
 
-	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x / 2 - 104, RENDERER.GetCurrentWindowDimensions().y / 2 - 37, 0);
+	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x / 2 - 104, RENDERER.GetCurrentWindowDimensions().y * 0.18f, 0);
 	go->SetTransform(pos);
 	scene.Add(go);
 
@@ -107,7 +107,6 @@ void dae::Minigin::LoadGame() const
 	InputManager::GetInstance().AddCommand(InputManager::ControllerKey(0, Controller::ControllerButton::PAD_LTRIGGER,
 		Controller::ButtonState::KEYDOWN), CommandToObject(ChangeText, go));
 
-	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x / 2, RENDERER.GetCurrentWindowDimensions().y / 4, 0);
 	//Health Observer (renderComp2D, TextComp, HealthObserver -> Attach to QBert)
 	go = std::make_shared<GameObject>("QBertHealthObserver");
 	go->AddComponent(std::make_shared<RenderComponent2D>());
@@ -117,6 +116,7 @@ void dae::Minigin::LoadGame() const
 	auto healthObsComp = std::make_shared<HealthObserverComponent>();
 	healthObsComp->SetTextComponent(textComp);
 	go->AddComponent(healthObsComp);
+	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x / 2 - 74, RENDERER.GetCurrentWindowDimensions().y * 0.9f, 0);
 	go->SetTransform(pos);
 	scene.Add(go);
 
@@ -124,6 +124,7 @@ void dae::Minigin::LoadGame() const
 	go = std::make_shared<GameObject>("QBert");
 	auto healthComp = std::make_shared<HealthComponent>();
 	healthComp->AddObserver(healthObsComp);
+	healthComp->SetLives(3);
 	go->AddComponent(healthComp);
 	scene.Add(go);
 
@@ -134,6 +135,7 @@ void dae::Minigin::LoadGame() const
 	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.5 }, Command(Fart), "Fart"));
 	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.6 }, Command(Jump), "Jump"));
 	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.7 }, CommandToObject(Kill, go), "Kill"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.8 }, CommandToObject(Respawn, go), "Respawn"));
 	mainMenu->AddComponent(uiComp);
 	scene.Add(mainMenu);
 	

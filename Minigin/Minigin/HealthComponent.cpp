@@ -1,7 +1,6 @@
 #include "MiniginPCH.h"
 #include "HealthComponent.h"
 
-
 #include "GameObject.h"
 #include "Scene.h"
 
@@ -32,23 +31,34 @@ float dae::HealthComponent::GetMaxHealth() const
 	return m_MaxHealth;
 }
 
+void dae::HealthComponent::AddLives(int delta)
+{
+	m_Lives += delta;
+	EvaluateHealth();
+}
+
+void dae::HealthComponent::SetLives(int value)
+{
+	m_Lives = value;
+	EvaluateHealth();
+}
+
+int dae::HealthComponent::GetLives() const
+{
+	return m_Lives;
+}
+
 void dae::HealthComponent::Update()
 {
-	EvaluateHealth();
+	//EvaluateHealth();
 }
 
 void dae::HealthComponent::EvaluateHealth()
 {
-	if (m_Health <= 0)
-	{
-		Notify(PARENT->shared_from_this(), int(HealthState::DIED));
-
-		m_Health = m_MaxHealth;
-		--m_Lives;
-	}
-	else
-	{
-		Notify(PARENT->shared_from_this(), m_Lives);
-
-	}
+	auto healthAttributes = std::make_shared<HealthEventAttributes>();
+	healthAttributes->health = m_Health;
+	healthAttributes->maxHealth = m_MaxHealth;
+	healthAttributes->lives = m_Lives;
+	healthAttributes->state = HealthEventAttributes::HealthState(m_Health > 0.f);
+	Notify(PARENT->shared_from_this(), healthAttributes);
 }

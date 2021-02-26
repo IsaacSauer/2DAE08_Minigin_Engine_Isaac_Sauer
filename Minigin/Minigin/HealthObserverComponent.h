@@ -9,7 +9,7 @@ public:
 	virtual void Update() override;
 
 public:
-	virtual void OnNotify(std::shared_ptr<dae::GameObject> go, int event) override;
+	virtual void OnNotify(std::shared_ptr<dae::GameObject> go, std::shared_ptr<dae::EventAttributes> event) override;
 	
 public:
 	HealthObserverComponent() = default;

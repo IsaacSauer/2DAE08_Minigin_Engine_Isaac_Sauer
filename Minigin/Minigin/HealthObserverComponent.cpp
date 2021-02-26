@@ -7,20 +7,17 @@ void HealthObserverComponent::Update()
 {
 }
 
-void HealthObserverComponent::OnNotify(std::shared_ptr<dae::GameObject> go, int event)
+void HealthObserverComponent::OnNotify(std::shared_ptr<dae::GameObject> go, std::shared_ptr<dae::EventAttributes> event)
 {
-	if (event < 0) event = 0;
-
-	auto state = static_cast<dae::HealthComponent::HealthState>(bool(event));
-	if(m_wTextComponent.lock())
+	if(auto cast = std::dynamic_pointer_cast<dae::HealthEventAttributes>(event))
 	{
-		switch (state)
+		switch (cast->state)
 		{
-		case dae::HealthComponent::HealthState::DIED:
+		case dae::HealthEventAttributes::HealthState::DIED:
 			m_wTextComponent.lock()->SetText("PlayerDied");
 			break;
-			case dae::HealthComponent::HealthState::ALLIVE:
-			m_wTextComponent.lock()->SetText("Remaining lives: " + std::to_string(event));
+		case dae::HealthEventAttributes::HealthState::ALLIVE:
+			m_wTextComponent.lock()->SetText("Remaining lives: " + std::to_string(cast->lives));
 			break;
 		}
 	}

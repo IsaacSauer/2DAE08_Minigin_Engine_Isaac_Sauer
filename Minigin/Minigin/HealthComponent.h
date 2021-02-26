@@ -4,7 +4,7 @@
 
 namespace dae
 {
-	class HealthComponent : public MonoBehavior, public Subject
+	class HealthEventAttributes : public EventAttributes
 	{
 	public:
 		enum class HealthState
@@ -13,11 +13,24 @@ namespace dae
 			ALLIVE = 1,
 		};
 
+		float health{};
+		float maxHealth{};
+		int lives{};
+		HealthState state{};
+	};
+	
+	class HealthComponent : public MonoBehavior, public Subject
+	{
+	public:
+
 		void AddHealth(float delta);
 		void SetHealth(float value);
 		float GetHealth() const;
 		void SetMaxHealth(float value);
 		float GetMaxHealth() const;
+		void AddLives(int delta);
+		void SetLives(int value);
+		int GetLives() const;
 	public:
 		virtual void Update() override;
 
