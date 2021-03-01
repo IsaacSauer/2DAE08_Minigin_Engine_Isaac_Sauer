@@ -17,8 +17,9 @@ std::shared_ptr<GameObject> Scene::GetObjectById(UINT id) const
 	return result->second;
 }
 
-Scene::Scene(const std::string& name)
+Scene::Scene(const std::string& name, UINT id)
 	: m_Name{ name }
+	,m_SceneID{id}
 {
 }
 
@@ -26,7 +27,8 @@ Scene::~Scene() = default;
 
 void Scene::Add(const std::shared_ptr<GameObject>& object)
 {
-	m_Objects.insert({(UINT)m_Objects.size(), object});
+	m_Objects.insert({GameObject::m_GameObjectIdCounter, object});
+	GameObject::m_GameObjectIdCounter++;
 }
 
 void Scene::FixedUpdate()

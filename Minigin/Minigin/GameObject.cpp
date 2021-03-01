@@ -49,7 +49,6 @@ void dae::GameObject::Update()
 dae::GameObject::GameObject()
 	:m_ID{m_GameObjectIdCounter}
 {
-	++m_GameObjectIdCounter;
 }
 
 dae::GameObject::GameObject(const std::string& name)

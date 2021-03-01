@@ -5,14 +5,22 @@
 
 bool dae::InputManager::ProcessInput()
 {
-	// todo: read the input
+	//Retreive SDLInput
+	m_SDLEvents.clear();
+	SDL_Event e;
+	while (SDL_PollEvent(&e))
+	{
+		m_SDLEvents.push_back(e);
+	}
+
+	// ProcessControllers
 	for (auto& controller : m_Controllers)
 	{
 		controller->ProcessInput();
 	}
 
-	//Handle Input
-	for (auto& command : m_ControllerCommands)
+	//Handle Controller Commands
+	for (auto& command : m_ControllerInputCommands)
 	{
 		switch (command.first.second.second)
 		{
@@ -41,19 +49,21 @@ bool dae::InputManager::ProcessInput()
 		}
 	}
 
-	SDL_Event e;
-	while (SDL_PollEvent(&e)) {
-		if (e.type == SDL_QUIT) {
-			return false;
+	//Handle keyboard Commands
+	for(auto& command : m_SDLInputCommands)
+	{
+		if(command.first.second == KEYDOWN)
+		{
+			if (CheckSDLEvent(command.first.first, KEYPRESSED))
+				command.second.second = true;
+			if (CheckSDLEvent(command.first.first, KEYRELEASED))
+				command.second.second = false;
+			if (command.second.second)
+				command.second.first->Execute();
 		}
-		if (e.type == SDL_KEYDOWN) {
-			
-		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			
-		}
+		else if (CheckSDLEvent(command.first.first, command.first.second))
+			command.second.first->Execute();
 	}
-
 	return true;
 }
 
@@ -97,6 +107,32 @@ bool dae::InputManager::IsButtonReleased(Controller::ControllerButton button, UI
 	return m_Controllers.at(controllerId)->IsReleased(button);
 }
 
+bool dae::InputManager::CheckSDLEvent(SDL_Keycode key, SDLEvent type)
+{
+	for(SDL_Event& event : m_SDLEvents)
+	{
+		switch (type)
+		{
+		//Check if requested quit
+		case QUIT:
+			if (event.type == static_cast<Uint32>(type))
+				return true;
+			break;
+		case KEYDOWN:
+			if (event.type == SDL_KEYDOWN)
+				return true;
+		default:
+			if (event.type == static_cast<Uint32>(type)
+				&& event.key.keysym.sym == key
+				&& event.key.repeat == 0)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 UINT dae::InputManager::AddController()
 {
 	UINT size = UINT(m_Controllers.size());
@@ -110,7 +146,7 @@ UINT dae::InputManager::AddController()
 	return 0;
 }
 
-dae::InputManager::ControllerKeyType dae::InputManager::ControllerKey(UINT id, Controller::ControllerButton button,
+dae::InputManager::ControllerInputEvent dae::InputManager::ControllerKey(UINT id, Controller::ControllerButton button,
 	Controller::ButtonState state)
 {
 	return std::make_pair(id, std::make_pair(button, state));

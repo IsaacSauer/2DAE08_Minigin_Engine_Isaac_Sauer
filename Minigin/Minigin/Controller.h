@@ -47,23 +47,6 @@ public:
 		REPEAT,
 	};
 
-	class Button final
-	{
-	public:
-		explicit Button(UINT m_ControllerID, Controller::ControllerButton button, Controller::ButtonState state);
-
-		Controller::ControllerButton GetButton() const;
-		Controller::ButtonState GetState() const;
-		UINT GetControllerID() const;
-		bool IsDown() const;
-
-		bool operator<(const Button& rhs) const;
-	private:
-		UINT m_ControllerID;
-		Controller::ControllerButton m_Button;
-		Controller::ButtonState m_State;
-		bool m_IsDown = false;
-	};
 public:
 	explicit Controller(UINT id) :id{ id } {}
 

@@ -26,7 +26,7 @@ namespace dae
 		std::shared_ptr<GameObject> GetObjectById(UINT id) const;
 		
 	private: 
-		explicit Scene(const std::string& name);
+		explicit Scene(const std::string& name, UINT id);
 
 		std::string m_Name{};
 		std::unordered_map<UINT ,std::shared_ptr<GameObject>> m_Objects{};

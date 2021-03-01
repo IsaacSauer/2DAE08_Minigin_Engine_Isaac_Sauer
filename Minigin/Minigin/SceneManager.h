@@ -18,6 +18,7 @@ namespace dae
 
 		std::shared_ptr<Scene> GetSceneByName(const std::string& name) const;
 		std::shared_ptr<Scene> GetSceneById(UINT id) const;
+		UINT GetIdByName(const std::string& name) const;
 		
 		void FixedUpdate();
 		void Update();

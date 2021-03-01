@@ -3,6 +3,7 @@
 
 #include "GameObject.h"
 #include "HealthComponent.h"
+#include "Scene.h"
 #include "TextComponent.h"
 
 class Command
@@ -24,6 +25,45 @@ private:
 	std::weak_ptr<dae::GameObject> m_TargetGameObject{};
 };
 
+///////////////////////////////
+//SCENE SWITCH COMMANDS
+///////////////////////////////
+class ActivateMenu final : public Command
+{
+public:
+	void Execute() override
+	{
+		SCENEMANAGER.SetActiveScene(SCENEMANAGER.GetIdByName("Menu"));
+	}
+};
+class ActivateSingleplayer final : public Command
+{
+public:
+	void Execute() override
+	{
+		SCENEMANAGER.SetActiveScene(SCENEMANAGER.GetIdByName("Singleplayer"));
+	}
+};
+class ActivateCoop final : public Command
+{
+public:
+	void Execute() override
+	{
+		SCENEMANAGER.SetActiveScene(SCENEMANAGER.GetIdByName("Coop"));
+	}
+};
+class ActivateVersus final : public Command
+{
+public:
+	void Execute() override
+	{
+		SCENEMANAGER.SetActiveScene(SCENEMANAGER.GetIdByName("Versus"));
+	}
+};
+
+
+
+///////////////////////////////
 class Fire final : public Command
 {
 public:

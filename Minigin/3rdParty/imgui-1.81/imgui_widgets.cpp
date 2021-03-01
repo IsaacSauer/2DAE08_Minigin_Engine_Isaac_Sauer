@@ -6187,7 +6187,7 @@ bool ImGui::ListBoxHeader(const char* label, int items_count, int height_in_item
 void ImGui::EndListBox()
 {
     ImGuiContext& g = *GImGui;
-    ImGuiWindow* window = g.CurrentWindow;
+    [[maybe_unused]] ImGuiWindow* window = g.CurrentWindow;
     IM_ASSERT((window->Flags & ImGuiWindowFlags_ChildWindow) && "Mismatched BeginListBox/EndListBox calls. Did you test the return value of BeginListBox?");
 
     EndChildFrame();

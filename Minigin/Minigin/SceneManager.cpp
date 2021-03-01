@@ -39,6 +39,21 @@ std::shared_ptr<dae::Scene> dae::SceneManager::GetSceneById(UINT id) const
 	return requested->second;
 }
 
+UINT dae::SceneManager::GetIdByName(const std::string& name) const
+{
+	const auto foundScene = std::find_if(m_Scenes.begin(), m_Scenes.end(),
+		[&name](const std::pair<UINT, std::shared_ptr<Scene>>& A)
+		{ return A.second->GetName() == name; });
+
+	if (foundScene == m_Scenes.end())
+	{
+		std::cerr << "Requested scene not found\n";
+		return 0;
+	}
+
+	return foundScene->first;
+}
+
 void dae::SceneManager::FixedUpdate()
 {
 	m_ActiveScene->FixedUpdate();
@@ -56,11 +71,12 @@ void dae::SceneManager::Render() const
 
 dae::Scene& dae::SceneManager::CreateScene(const std::string& name, bool setAsActive)
 {
-	const auto& scene = std::shared_ptr<Scene>(new Scene(name));
+	const auto& scene = std::shared_ptr<Scene>(new Scene(name, m_SceneIdCounter));
 	m_Scenes.insert({m_SceneIdCounter, scene});
 	if (setAsActive)
 		m_ActiveScene = scene;
 
+	
 	++m_SceneIdCounter;
 	return *scene;
 }
