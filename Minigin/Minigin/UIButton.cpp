@@ -8,7 +8,7 @@
 void dae::UIButton::Present(const ImGuiViewport* viewport)
 {
 	ImGui::SetCursorPos({ viewport->Size.x * m_Pos.x - 50, viewport->Size.y * m_Pos.y - 10 });
-	m_State = ImGui::Button(m_ButtonName.c_str(), { 100, 20 });
+	m_State = ImGui::Button(m_ButtonName.c_str(), m_AutoSize ? ImVec2{} : ImVec2{ 100, 20 });
 }
 
 void dae::UIButton::Update()

@@ -17,6 +17,14 @@ std::shared_ptr<GameObject> Scene::GetObjectById(UINT id) const
 	return result->second;
 }
 
+std::shared_ptr<GameObject> Scene::CreateGameObjectInScene(const std::string& name)
+{
+	auto go = std::make_shared<GameObject>(name);
+	go->m_SceneID = m_SceneID;
+	Add(go);
+	return go;
+}
+
 Scene::Scene(const std::string& name, UINT id)
 	: m_Name{ name }
 	,m_SceneID{id}
@@ -27,6 +35,7 @@ Scene::~Scene() = default;
 
 void Scene::Add(const std::shared_ptr<GameObject>& object)
 {
+	object->m_SceneID = m_SceneID;
 	m_Objects.insert({GameObject::m_GameObjectIdCounter, object});
 	GameObject::m_GameObjectIdCounter++;
 }

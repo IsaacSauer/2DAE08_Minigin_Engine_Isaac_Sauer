@@ -26,7 +26,8 @@ namespace dae
 		bool AddComponent(std::shared_ptr<MonoBehavior> component);
 
 		UINT GetID() const;
-
+		UINT GetSceneID() const;
+		
 		const Transform& GetTransform() const { return m_Transform; }
 		void SetTransform(const Transform& transform) { m_Transform = transform; }
 
@@ -40,9 +41,12 @@ namespace dae
 		void SetName(const std::string& name) { m_Name = name; }
 		void SetID(UINT id) { m_ID = id; }
 
+		
 		Transform m_Transform;
 		std::string m_Name = "GameObject";
 		UINT m_ID{};
+
+		UINT m_SceneID{};
 		
 		bool m_Enabled = true;
 		

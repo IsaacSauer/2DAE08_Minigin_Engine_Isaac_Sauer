@@ -37,36 +37,4 @@ namespace dae
 	//Macros
 	#define SCENEMANAGER dae::SceneManager::GetInstance()
 
-	//inline void ShowMenu(bool* p_open)
-	//{
-	//	ImGuiStyle& style = ImGui::GetStyle();
-	//	style.FrameRounding = 4.f;
-	//	style.WindowBorderSize = 0.f;
-	//	
-	//	static bool use_work_area = true;
-	//	static ImGuiWindowFlags flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings;
-
-	//	// We demonstrate using the full viewport area or the work area (without menu-bars, task-bars etc.)
-	//	// Based on your use case you may want one of the other.
-	//	const ImGuiViewport* viewport = ImGui::GetMainViewport();
-	//	ImGui::SetNextWindowPos(use_work_area ? viewport->WorkPos : viewport->Pos);
-	//	ImGui::SetNextWindowSize(use_work_area ? viewport->WorkSize : viewport->Size);
-
-	//	
-	//	if (ImGui::Begin("MainMenu", p_open, flags))
-	//	{
-	//		//ImGui::SetWindowFontScale(1.5);
-	//		ImGui::SetCursorPos({ viewport->Size.x / 2 - 50, viewport->Size.y / 2 - 25});
-	//		if (p_open && ImGui::Button("Singleplayer", {100, 20}))
-	//			*p_open = false;
-	//		ImGui::SetCursorPos({ viewport->Size.x / 2 - 50, viewport->Size.y / 2});
-	//		if (p_open && ImGui::Button("Co-op", {100, 20}))
-	//			*p_open = false;
-	//		ImGui::SetCursorPos({ viewport->Size.x / 2 - 50, viewport->Size.y / 2 + 25});
-	//		if (p_open && ImGui::Button("Versus", {100, 20}))
-	//			*p_open = false;
-	//	}
-	//	ImGui::End();
-	//}
-
 }

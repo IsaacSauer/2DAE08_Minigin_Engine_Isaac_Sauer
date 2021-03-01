@@ -24,7 +24,8 @@ namespace dae
 		const std::string& GetName() const { return m_Name; }
 
 		std::shared_ptr<GameObject> GetObjectById(UINT id) const;
-		
+
+		std::shared_ptr<GameObject> CreateGameObjectInScene(const std::string& name);
 	private: 
 		explicit Scene(const std::string& name, UINT id);
 

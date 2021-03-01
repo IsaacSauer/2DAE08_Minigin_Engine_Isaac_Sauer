@@ -21,11 +21,17 @@ bool dae::GameObject::AddComponent(std::shared_ptr<MonoBehavior> component)
 		if(result.second)
 		{
 			result.first->second->SetParent(m_ID);
+			result.first->second->SetScene(m_SceneID);
 			return true;
 		}
 	}
 
 	return false;
+}
+
+UINT dae::GameObject::GetSceneID() const
+{
+	return m_SceneID;
 }
 
 void dae::GameObject::FixedUpdate()

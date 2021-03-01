@@ -14,10 +14,10 @@ void HealthObserverComponent::OnNotify(std::shared_ptr<dae::GameObject> go, std:
 		switch (cast->state)
 		{
 		case dae::HealthEventAttributes::HealthState::DIED:
-			m_wTextComponent.lock()->SetText("PlayerDied");
+			m_wTextComponent.lock()->SetText(cast->name + " died");
 			break;
 		case dae::HealthEventAttributes::HealthState::ALLIVE:
-			m_wTextComponent.lock()->SetText("Remaining lives: " + std::to_string(cast->lives));
+			m_wTextComponent.lock()->SetText(cast->name + " remaining lives: " + std::to_string(cast->lives));
 			break;
 		}
 	}

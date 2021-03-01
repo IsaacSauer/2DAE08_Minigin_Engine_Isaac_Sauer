@@ -17,6 +17,7 @@ namespace dae
 		float maxHealth{};
 		int lives{};
 		HealthState state{};
+		std::string name{};
 	};
 	
 	class HealthComponent : public MonoBehavior, public Subject

@@ -14,10 +14,13 @@
 #include "RenderComponent2D.h"
 #include "RenderComponentUI.h"
 #include "Scene.h"
+#include "ScoreComponent.h"
+#include "ScoreObserverComponent.h"
 #include "TextComponent.h"
 #include "TextureComponent.h"
 #include "Timer.h"
 #include "UIButton.h"
+#include "UITextBox.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -29,7 +32,7 @@ void InitSceneVersus();
 
 void dae::Minigin::Initialize()
 {
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
@@ -42,7 +45,7 @@ void dae::Minigin::Initialize()
 		480,
 		SDL_WINDOW_OPENGL
 	);
-	if (m_Window == nullptr) 
+	if (m_Window == nullptr)
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
@@ -76,74 +79,6 @@ void dae::Minigin::LoadGame() const
 	InitSceneSinglePlayer();
 	InitSceneCoop();
 	InitSceneVersus();
-
-	//Transform pos{};
-	//auto& scene = SceneManager::GetInstance().CreateScene("Demo");
-	//
-	////Background
-	//std::shared_ptr<GameObject> go = std::make_shared<GameObject>("Background");
-	//go->AddComponent(std::make_shared<RenderComponent2D>());
-	//go->AddComponent(std::make_shared<TextureComponent>(RESOURCEMANAGER.LoadTexture("background.jpg")));
-	//scene.Add(go);
-	////Title
-	//go = std::make_shared<GameObject>("Title");
-	//go->AddComponent(std::make_shared<RenderComponent2D>());
-	//auto textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 36));
-	//textComp->SetText("Programming 4 assignment");
-	//go->AddComponent(textComp);
-	//pos.SetPosition(80, 20, 0);
-	//go->SetTransform(pos);
-	//scene.Add(go);
-	////Logo
-	//go = std::make_shared<GameObject>("Logo");
-	//go->AddComponent(std::make_shared<RenderComponent2D>());
-	//go->AddComponent(std::make_shared<TextureComponent>(RESOURCEMANAGER.LoadTexture("logo.png")));
-	//pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x / 2 - 104, RENDERER.GetCurrentWindowDimensions().y * 0.18f, 0);
-	//go->SetTransform(pos);
-	//scene.Add(go);
-	////FPS Counter
-	//go = std::make_shared<GameObject>("FPS");
-	//go->AddComponent(std::make_shared<RenderComponent2D>());
-	//textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 20));
-	//textComp->SetText("FPS: -");
-	//go->AddComponent(textComp);
-	//auto FPSComp = std::make_shared<FPSComponent>();
-	//FPSComp->SetTextComponent(textComp);
-	//go->AddComponent(FPSComp);
-	//scene.Add(go);
-	//pos.SetPosition(0, 0, 0);
-	//
-	//InputManager::GetInstance().AddControllerCommand(InputManager::ControllerKey(0, Controller::ControllerButton::PAD_LTRIGGER,
-	//	Controller::ButtonState::KEYDOWN), CreateCommandToObject(ChangeText, go));
-	////Health Observer (renderComp2D, TextComp, HealthObserver -> Attach to QBert)
-	//go = std::make_shared<GameObject>("QBertHealthObserver");
-	//go->AddComponent(std::make_shared<RenderComponent2D>());
-	//textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 20));
-	//textComp->SetText("PlayerAlive");
-	//go->AddComponent(textComp);
-	//auto healthObsComp = std::make_shared<HealthObserverComponent>();
-	//healthObsComp->SetTextComponent(textComp);
-	//go->AddComponent(healthObsComp);
-	//pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x / 2 - 74, RENDERER.GetCurrentWindowDimensions().y * 0.9f, 0);
-	//go->SetTransform(pos);
-	//scene.Add(go);
-	////QBert (health comp)
-	//go = std::make_shared<GameObject>("QBert");
-	//auto healthComp = std::make_shared<HealthComponent>();
-	//healthComp->AddObserver(healthObsComp);
-	//healthComp->SetLives(3);
-	//go->AddComponent(healthComp);
-	//scene.Add(go);
-	////MainMenu
-	//auto mainMenu = std::make_shared<GameObject>("MainMenu");
-	//auto uiComp = std::make_shared<RenderComponentUI>();
-	//uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.4 }, CreateCommand(Fire), "Fire"));
-	//uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.5 }, CreateCommand(Fart), "Fart"));
-	//uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.6 }, CreateCommand(Jump), "Jump"));
-	//uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.7 }, CreateCommandToObject(Kill, go), "Kill"));
-	//uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.8 }, CreateCommandToObject(Respawn, go), "Respawn"));
-	//mainMenu->AddComponent(uiComp);
-	//scene.Add(mainMenu);
 }
 
 void dae::Minigin::Cleanup()
@@ -172,7 +107,7 @@ void dae::Minigin::Run()
 		auto lastTime = high_resolution_clock::now();
 		float lag{};
 
-		TIMER.SetFixedTimeStep( 1 / MsPerUpdate);
+		TIMER.SetFixedTimeStep(1 / MsPerUpdate);
 		while (doContinue)
 		{
 			const auto currentTime = high_resolution_clock::now();
@@ -188,7 +123,7 @@ void dae::Minigin::Run()
 			if (input.IsButtonPressed(Controller::ControllerButton::PAD_BACK, 0))
 				doContinue = false;
 
-			while(lag >= MsPerUpdate)
+			while (lag >= MsPerUpdate)
 			{
 				sceneManager.FixedUpdate();
 				lag -= MsPerUpdate;
@@ -216,32 +151,50 @@ void InitSceneMenu()
 	auto& scene = SceneManager::GetInstance().CreateScene("Menu");
 
 	//Background
-	std::shared_ptr<GameObject> go = std::make_shared<GameObject>("Background");
+	std::shared_ptr<GameObject> go = scene.CreateGameObjectInScene("Background");
 	go->AddComponent(std::make_shared<RenderComponent2D>());
 	go->AddComponent(std::make_shared<TextureComponent>(RESOURCEMANAGER.LoadTexture("background.jpg")));
-	scene.Add(go);
 
 	//Title
-	go = std::make_shared<GameObject>("Title");
+	go = scene.CreateGameObjectInScene("Title");
 	go->AddComponent(std::make_shared<RenderComponent2D>());
 	auto textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 36));
 	textComp->SetText("Programming 4 assignment");
 	go->AddComponent(textComp);
 	pos.SetPosition(80, 20, 0);
 	go->SetTransform(pos);
-	scene.Add(go);
+
+	//Logo
+	go = scene.CreateGameObjectInScene("Logo");
+	go->AddComponent(std::make_shared<RenderComponent2D>());
+	go->AddComponent(std::make_shared<TextureComponent>(RESOURCEMANAGER.LoadTexture("logo.png")));
+
+	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x / 2 - 104, RENDERER.GetCurrentWindowDimensions().y * 0.18f, 0);
+	go->SetTransform(pos);
 
 	//MainMenu
-	auto mainMenu = std::make_shared<GameObject>("MainMenu");
+	auto mainMenu = scene.CreateGameObjectInScene("MainMenu");
 	auto uiComp = std::make_shared<RenderComponentUI>();
 	uiComp->SetRenderFlags(ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoBackground);
-	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.4 }, CreateCommand(ActivateSingleplayer), "Singleplayer"));
-	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.5 }, CreateCommand(ActivateCoop), "Co-op"));
-	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.6 }, CreateCommand(ActivateVersus), "Versus"));
-	mainMenu->AddComponent(uiComp);
-	scene.Add(mainMenu);
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.4 }, CreateCommand(ActivateSingleplayer), "Singleplayer", false));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.5 }, CreateCommand(ActivateCoop), "Co-op", false));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.6 }, CreateCommand(ActivateVersus), "Versus", false));
+	uiComp->AddUIElement(std::make_shared<UITextBox>(glm::vec2{0.1, 0.4}, 200.f, "Info:\n"
+		"Currently only Singleplayer and Co-op is available.\n"
+		"\n"
+		"Controls:\n"
+		"All the gameplay controls are currently with placeholder buttons.\n"
+		"\n"
+		"\"Escape\" to go back to main menu.\n"
+		"PAD_A: Fire\n"
+		"PAD_B: Duck\n"
+		"PAD_Y: Jump\n"
+		"PAD_X: Fart\n"
+		"SHARE(PS4)/BACK(xbox): quit"));
 
+	mainMenu->AddComponent(uiComp);
 }
+
 void InitSceneSinglePlayer()
 {
 	using namespace dae;
@@ -249,32 +202,21 @@ void InitSceneSinglePlayer()
 	auto& scene = SceneManager::GetInstance().CreateScene("Singleplayer", false);
 
 	//Background
-	std::shared_ptr<GameObject> go = std::make_shared<GameObject>("Background");
+	std::shared_ptr<GameObject> go = scene.CreateGameObjectInScene("Background");
 	go->AddComponent(std::make_shared<RenderComponent2D>());
 	go->AddComponent(std::make_shared<TextureComponent>(RESOURCEMANAGER.LoadTexture("background.jpg")));
-	scene.Add(go);
 
 	//Title
-	go = std::make_shared<GameObject>("Title");
+	go = scene.CreateGameObjectInScene("Title");
 	go->AddComponent(std::make_shared<RenderComponent2D>());
 	auto textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 36));
 	textComp->SetText("Singleplayer");
 	go->AddComponent(textComp);
 	pos.SetPosition(80, 20, 0);
 	go->SetTransform(pos);
-	scene.Add(go);
-
-	//Logo
-	go = std::make_shared<GameObject>("Logo");
-	go->AddComponent(std::make_shared<RenderComponent2D>());
-	go->AddComponent(std::make_shared<TextureComponent>(RESOURCEMANAGER.LoadTexture("logo.png")));
-
-	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x / 2 - 104, RENDERER.GetCurrentWindowDimensions().y * 0.18f, 0);
-	go->SetTransform(pos);
-	scene.Add(go);
 
 	//FPS Counter
-	go = std::make_shared<GameObject>("FPS");
+	go = scene.CreateGameObjectInScene("FPS");
 	go->AddComponent(std::make_shared<RenderComponent2D>());
 	textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 20));
 	textComp->SetText("FPS: -");
@@ -282,12 +224,11 @@ void InitSceneSinglePlayer()
 	auto FPSComp = std::make_shared<FPSComponent>();
 	FPSComp->SetTextComponent(textComp);
 	go->AddComponent(FPSComp);
-	scene.Add(go);
 	pos.SetPosition(0, 0, 0);
 
-
+#pragma region Player 1
 	//Health Observer (renderComp2D, TextComp, HealthObserver -> Attach to QBert)
-	go = std::make_shared<GameObject>("QBertHealthObserver");
+	go = scene.CreateGameObjectInScene("QBertHealthObserver");
 	go->AddComponent(std::make_shared<RenderComponent2D>());
 	textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 20));
 	textComp->SetText("PlayerAlive");
@@ -297,16 +238,49 @@ void InitSceneSinglePlayer()
 	go->AddComponent(healthObsComp);
 	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x / 2 - 74, RENDERER.GetCurrentWindowDimensions().y * 0.9f, 0);
 	go->SetTransform(pos);
-	scene.Add(go);
 	//QBert (health comp)
-	go = std::make_shared<GameObject>("QBert");
+	auto health = scene.CreateGameObjectInScene("QBert");
+	scene.Add(health);
 	auto healthComp = std::make_shared<HealthComponent>();
+	health->AddComponent(healthComp);
 	healthComp->AddObserver(healthObsComp);
 	healthComp->SetLives(3);
-	go->AddComponent(healthComp);
-	scene.Add(go);
+
+	//Score observer
+	go = scene.CreateGameObjectInScene("QBertScoreObserver");
+	go->AddComponent(std::make_shared<RenderComponent2D>());
+	textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 20));
+	textComp->SetText("Score: -");
+	go->AddComponent(textComp);
+	auto scoreObsComp = std::make_shared<ScoreObserverComponent>();
+	scoreObsComp->SetTextComponent(textComp);
+	go->AddComponent(scoreObsComp);
+	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x / 2 - 74, RENDERER.GetCurrentWindowDimensions().y * 0.8f, 0);
+	go->SetTransform(pos);
+	//Score subject
+	auto score = scene.CreateGameObjectInScene("QBertScoreSubject");
+	auto scoreComp = std::make_shared<ScoreComponent>();
+	scoreComp->AddObserver(scoreObsComp);
+	scoreComp->SetScore(0);
+	score->AddComponent(scoreComp);
+#pragma endregion
+	
+	//Buttons
+	auto buttons = scene.CreateGameObjectInScene("buttons");
+	auto uiComp = std::make_shared<RenderComponentUI>();
+	uiComp->SetRenderFlags(ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoBackground);
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.4 }, CreateCommandToObject(Kill, health), "Kill"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.45 }, CreateCommandToObject(Respawn, health), "Respawn"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.5 }, CreateCommandToObject(ChangeColor, score), "On ChangeColor"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.55 }, CreateCommandToObject(DefeatCoilyWithFlyingDisc, score), "On Defeat Coily with flying disc"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.6 }, CreateCommandToObject(RemainingDiscsAtTheEndOfAStage, score), "On Remaining Discs At End Of Stage"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.5, 0.65 }, CreateCommandToObject(CatchSlickAndSam, score), "On Catch Slick And Sam"));
+
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.99, 0.05 }, CreateCommand(ActivateMenu), "Menu"));
+	buttons->AddComponent(uiComp);
 
 }
+
 void InitSceneCoop()
 {
 	using namespace dae;
@@ -314,32 +288,21 @@ void InitSceneCoop()
 	auto& scene = SceneManager::GetInstance().CreateScene("Coop", false);
 
 	//Background
-	std::shared_ptr<GameObject> go = std::make_shared<GameObject>("Background");
+	std::shared_ptr<GameObject> go = scene.CreateGameObjectInScene("Background");
 	go->AddComponent(std::make_shared<RenderComponent2D>());
 	go->AddComponent(std::make_shared<TextureComponent>(RESOURCEMANAGER.LoadTexture("background.jpg")));
-	scene.Add(go);
 
 	//Title
-	go = std::make_shared<GameObject>("Title");
+	go = scene.CreateGameObjectInScene("Title");
 	go->AddComponent(std::make_shared<RenderComponent2D>());
 	auto textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 36));
 	textComp->SetText("Co-op");
 	go->AddComponent(textComp);
 	pos.SetPosition(80, 20, 0);
 	go->SetTransform(pos);
-	scene.Add(go);
-
-	//Logo
-	go = std::make_shared<GameObject>("Logo");
-	go->AddComponent(std::make_shared<RenderComponent2D>());
-	go->AddComponent(std::make_shared<TextureComponent>(RESOURCEMANAGER.LoadTexture("logo.png")));
-
-	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x / 2 - 104, RENDERER.GetCurrentWindowDimensions().y * 0.18f, 0);
-	go->SetTransform(pos);
-	scene.Add(go);
 
 	//FPS Counter
-	go = std::make_shared<GameObject>("FPS");
+	go = scene.CreateGameObjectInScene("FPS");
 	go->AddComponent(std::make_shared<RenderComponent2D>());
 	textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 20));
 	textComp->SetText("FPS: -");
@@ -347,10 +310,114 @@ void InitSceneCoop()
 	auto FPSComp = std::make_shared<FPSComponent>();
 	FPSComp->SetTextComponent(textComp);
 	go->AddComponent(FPSComp);
-	scene.Add(go);
 	pos.SetPosition(0, 0, 0);
 
+#pragma region Player 1
+	//Health Observer (renderComp2D, TextComp, HealthObserver -> Attach to QBert)
+	go = scene.CreateGameObjectInScene("QBertHealthObserver");
+	go->AddComponent(std::make_shared<RenderComponent2D>());
+	textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 20));
+	textComp->SetText("PlayerAlive");
+	go->AddComponent(textComp);
+	auto healthObsComp1 = std::make_shared<HealthObserverComponent>();
+	healthObsComp1->SetTextComponent(textComp);
+	go->AddComponent(healthObsComp1);
+	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x * 0.1f, RENDERER.GetCurrentWindowDimensions().y * 0.9f, 0);
+	go->SetTransform(pos);
+	//QBert (health comp)
+	auto health1 = scene.CreateGameObjectInScene("Player 1");
+	scene.Add(health1);
+	auto healthComp1 = std::make_shared<HealthComponent>();
+	health1->AddComponent(healthComp1);
+	healthComp1->AddObserver(healthObsComp1);
+	healthComp1->SetLives(3);
+
+	//Score observer
+	go = scene.CreateGameObjectInScene("QBertScoreObserver");
+	go->AddComponent(std::make_shared<RenderComponent2D>());
+	textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 20));
+	textComp->SetText("Score: -");
+	go->AddComponent(textComp);
+	auto scoreObsComp1 = std::make_shared<ScoreObserverComponent>();
+	scoreObsComp1->SetTextComponent(textComp);
+	go->AddComponent(scoreObsComp1);
+	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x * 0.1f, RENDERER.GetCurrentWindowDimensions().y * 0.8f, 0);
+	go->SetTransform(pos);
+	//Score subject
+	auto score1 = scene.CreateGameObjectInScene("QBertScoreSubject");
+	auto scoreComp1 = std::make_shared<ScoreComponent>();
+	scoreComp1->AddObserver(scoreObsComp1);
+	scoreComp1->SetScore(0);
+	score1->AddComponent(scoreComp1);
+#pragma endregion
+	
+#pragma region Player 2
+	//Health Observer (renderComp2D, TextComp, HealthObserver -> Attach to QBert)
+	go = scene.CreateGameObjectInScene("QBertHealthObserver");
+	go->AddComponent(std::make_shared<RenderComponent2D>());
+	textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 20));
+	textComp->SetText("PlayerAlive");
+	go->AddComponent(textComp);
+	auto healthObsComp2 = std::make_shared<HealthObserverComponent>();
+	healthObsComp2->SetTextComponent(textComp);
+	go->AddComponent(healthObsComp2);
+	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x * 0.6f, RENDERER.GetCurrentWindowDimensions().y * 0.9f, 0);
+	go->SetTransform(pos);
+	//QBert (health comp)
+	auto health2 = scene.CreateGameObjectInScene("Player 2");
+	scene.Add(health2);
+	auto healthComp2 = std::make_shared<HealthComponent>();
+	health2->AddComponent(healthComp2);
+	healthComp2->AddObserver(healthObsComp2);
+	healthComp2->SetLives(3);
+
+	//Score observer
+	go = scene.CreateGameObjectInScene("QBertScoreObserver");
+	go->AddComponent(std::make_shared<RenderComponent2D>());
+	textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 20));
+	textComp->SetText("Score: -");
+	go->AddComponent(textComp);
+	auto scoreObsComp2 = std::make_shared<ScoreObserverComponent>();
+	scoreObsComp2->SetTextComponent(textComp);
+	go->AddComponent(scoreObsComp2);
+	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x * 0.6f, RENDERER.GetCurrentWindowDimensions().y * 0.8f, 0);
+	go->SetTransform(pos);
+	//Score subject
+	auto score2 = scene.CreateGameObjectInScene("QBertScoreSubject");
+	auto scoreComp2 = std::make_shared<ScoreComponent>();
+	scoreComp2->AddObserver(scoreObsComp2);
+	scoreComp2->SetScore(0);
+	score2->AddComponent(scoreComp2);
+#pragma endregion
+
+	//Buttons
+	auto buttons = scene.CreateGameObjectInScene("buttons");
+	auto uiComp = std::make_shared<RenderComponentUI>();
+	uiComp->SetRenderFlags(ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoBackground);
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.99, 0.05 }, CreateCommand(ActivateMenu), "Menu"));
+	buttons->AddComponent(uiComp);
+
+	//player 1
+	uiComp = std::make_shared<RenderComponentUI>();
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.15, 0.3 }, CreateCommandToObject(Kill, health1), "Player 1:\nKill"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.35, 0.3 }, CreateCommandToObject(Respawn, health1), "Player 1:\nRespawn"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.15, 0.4 }, CreateCommandToObject(ChangeColor, score1), "Player 1:\nOn ChangeColor"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.15, 0.5 }, CreateCommandToObject(DefeatCoilyWithFlyingDisc, score1), "Player 1:\nOn Defeat Coily with flying disc"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.15, 0.6 }, CreateCommandToObject(RemainingDiscsAtTheEndOfAStage, score1), "Player 1:\nOn Remaining Discs At End Of Stage"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.15, 0.7 }, CreateCommandToObject(CatchSlickAndSam, score1), "Player 1:\nOn Catch Slick And Sam"));
+	buttons->AddComponent(uiComp);
+
+	//player 2
+	uiComp = std::make_shared<RenderComponentUI>();
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.65, 0.3 }, CreateCommandToObject(Kill, health2), "Player 2:\nKill"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.85, 0.3 }, CreateCommandToObject(Respawn, health2), "Player 2:\nRespawn"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.65, 0.4 }, CreateCommandToObject(ChangeColor, score2), "Player 2:\nOn ChangeColor"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.65, 0.5 }, CreateCommandToObject(DefeatCoilyWithFlyingDisc, score2), "Player 2:\nOn Defeat Coily with flying disc"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.65, 0.6 }, CreateCommandToObject(RemainingDiscsAtTheEndOfAStage, score2), "Player 2:\nOn Remaining Discs At End Of Stage"));
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.65, 0.7 }, CreateCommandToObject(CatchSlickAndSam, score2), "Player 2:\nOn Catch Slick And Sam"));
+	buttons->AddComponent(uiComp);
 }
+
 void InitSceneVersus()
 {
 	using namespace dae;
@@ -358,32 +425,21 @@ void InitSceneVersus()
 	auto& scene = SceneManager::GetInstance().CreateScene("Versus", false);
 
 	//Background
-	std::shared_ptr<GameObject> go = std::make_shared<GameObject>("Background");
+	std::shared_ptr<GameObject> go = scene.CreateGameObjectInScene("Background");
 	go->AddComponent(std::make_shared<RenderComponent2D>());
 	go->AddComponent(std::make_shared<TextureComponent>(RESOURCEMANAGER.LoadTexture("background.jpg")));
-	scene.Add(go);
 
 	//Title
-	go = std::make_shared<GameObject>("Title");
+	go = scene.CreateGameObjectInScene("Title");
 	go->AddComponent(std::make_shared<RenderComponent2D>());
 	auto textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 36));
 	textComp->SetText("Versus");
 	go->AddComponent(textComp);
 	pos.SetPosition(80, 20, 0);
 	go->SetTransform(pos);
-	scene.Add(go);
-
-	//Logo
-	go = std::make_shared<GameObject>("Logo");
-	go->AddComponent(std::make_shared<RenderComponent2D>());
-	go->AddComponent(std::make_shared<TextureComponent>(RESOURCEMANAGER.LoadTexture("logo.png")));
-
-	pos.SetPosition(RENDERER.GetCurrentWindowDimensions().x / 2 - 104, RENDERER.GetCurrentWindowDimensions().y * 0.18f, 0);
-	go->SetTransform(pos);
-	scene.Add(go);
 
 	//FPS Counter
-	go = std::make_shared<GameObject>("FPS");
+	go = scene.CreateGameObjectInScene("FPS");
 	go->AddComponent(std::make_shared<RenderComponent2D>());
 	textComp = std::make_shared<TextComponent>(RESOURCEMANAGER.LoadFont("Lingua.otf", 20));
 	textComp->SetText("FPS: -");
@@ -391,7 +447,13 @@ void InitSceneVersus()
 	auto FPSComp = std::make_shared<FPSComponent>();
 	FPSComp->SetTextComponent(textComp);
 	go->AddComponent(FPSComp);
-	scene.Add(go);
 	pos.SetPosition(0, 0, 0);
 
+	//Buttons
+	auto buttons = scene.CreateGameObjectInScene("buttons");
+	auto uiComp = std::make_shared<RenderComponentUI>();
+	uiComp->SetRenderFlags(ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoBackground);
+
+	uiComp->AddUIElement(std::make_shared<UIButton>(glm::vec2{ 0.99, 0.05 }, CreateCommand(ActivateMenu), "Menu"));
+	buttons->AddComponent(uiComp);
 }

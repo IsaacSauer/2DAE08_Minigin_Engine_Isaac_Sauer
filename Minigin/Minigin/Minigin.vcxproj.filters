@@ -67,9 +67,6 @@
     <Filter Include="Source Files\Engine\UIElements\InheritedElements">
       <UniqueIdentifier>{b00b857e-d327-4f47-ada6-efc7390e7b0c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine\Components\InheritedComponents\QBertComponent">
-      <UniqueIdentifier>{1a1f9b87-0462-40c1-a5e2-f5ce47b40614}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Engine\Components\InheritedComponents\HealthComponent">
       <UniqueIdentifier>{a3f85e8c-5b7a-4f47-8fc2-cdd1c8a81897}</UniqueIdentifier>
     </Filter>
@@ -79,8 +76,8 @@
     <Filter Include="Source Files\Engine\InheritEnum">
       <UniqueIdentifier>{df7192e7-3041-4fda-ad9f-c2847a6788c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine\Components\InheritedComponents\HealthObserverComponent">
-      <UniqueIdentifier>{c5ad7881-ced9-4722-ae0e-3edb0e28e597}</UniqueIdentifier>
+    <Filter Include="Source Files\Engine\Components\InheritedComponents\ScoreComponent">
+      <UniqueIdentifier>{13a8c257-d9e0-43f5-a7c7-c92969dbe983}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -196,7 +193,16 @@
       <Filter>Source Files\Engine\Observer</Filter>
     </ClInclude>
     <ClInclude Include="HealthObserverComponent.h">
-      <Filter>Source Files\Engine\Components\InheritedComponents\HealthObserverComponent</Filter>
+      <Filter>Source Files\Engine\Components\InheritedComponents\HealthComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreComponent.h">
+      <Filter>Source Files\Engine\Components\InheritedComponents\ScoreComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreObserverComponent.h">
+      <Filter>Source Files\Engine\Components\InheritedComponents\ScoreComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="UITextBox.h">
+      <Filter>Source Files\Engine\UIElements\InheritedElements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -306,7 +312,16 @@
       <Filter>Source Files\Engine\Observer</Filter>
     </ClCompile>
     <ClCompile Include="HealthObserverComponent.cpp">
-      <Filter>Source Files\Engine\Components\InheritedComponents\HealthObserverComponent</Filter>
+      <Filter>Source Files\Engine\Components\InheritedComponents\HealthComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreComponent.cpp">
+      <Filter>Source Files\Engine\Components\InheritedComponents\ScoreComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreObserverComponent.cpp">
+      <Filter>Source Files\Engine\Components\InheritedComponents\ScoreComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="UITextBox.cpp">
+      <Filter>Source Files\Engine\UIElements\InheritedElements</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

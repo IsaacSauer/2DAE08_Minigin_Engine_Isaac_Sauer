@@ -26,11 +26,12 @@ namespace dae
 	protected:
 		friend class GameObject;
 		void SetParent(UINT id) { m_ParentID = id; }
+		void SetScene(UINT id) { m_SceneID = id; };
 	protected:
 		bool m_Enabled = true;
 		std::string m_Name = "Empty";
 		UINT m_ParentID{};
-
+		UINT m_SceneID{};
 		const bool m_IsRenderComponent{false};
 	private:
 	};
@@ -38,5 +39,5 @@ namespace dae
 	//macros
 
 
-#define PARENT SCENEMANAGER.GetActiveScene()->GetObjectById(m_ParentID)
+#define PARENT SCENEMANAGER.GetSceneById(m_SceneID)->GetObjectById(m_ParentID)
 }

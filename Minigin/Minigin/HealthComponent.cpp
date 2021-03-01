@@ -60,5 +60,6 @@ void dae::HealthComponent::EvaluateHealth()
 	healthAttributes->maxHealth = m_MaxHealth;
 	healthAttributes->lives = m_Lives;
 	healthAttributes->state = HealthEventAttributes::HealthState(m_Health > 0.f);
+	healthAttributes->name = PARENT->ToString();
 	Notify(PARENT->shared_from_this(), healthAttributes);
 }

@@ -51,7 +51,7 @@ void dae::Renderer::Render()
 	SceneManager::GetInstance().Render();
 	
 	//if (m_ShowDemo)
-	//	//ImGui::ShowDemoWindow(&m_ShowDemo);
+	//	ImGui::ShowDemoWindow(&m_ShowDemo);
 	//	ShowMenu(&m_ShowDemo);
 
 	ImGui::Render();

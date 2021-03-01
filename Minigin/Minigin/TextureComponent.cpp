@@ -24,6 +24,7 @@ void dae::TextureComponent::Update()
 {
 	if(m_UpdateRenderer)
 	{
+		auto test = SCENEMANAGER.GetSceneById(m_SceneID)->GetObjectById(m_ParentID);
 		const auto result = PARENT->GetComponentOfType<RenderComponent2D>();
 		if(result)
 		{

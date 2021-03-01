@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "HealthComponent.h"
 #include "Scene.h"
+#include "ScoreComponent.h"
 #include "TextComponent.h"
 
 class Command
@@ -107,6 +108,45 @@ public:
 		GetGameObject().lock()->GetComponentOfType<dae::TextComponent>()->SetText("LOOLOLOL");
 	}
 };
+
+class ChangeColor final : public Command
+{
+public:
+	ChangeColor(std::weak_ptr<dae::GameObject> targetObj) :Command(targetObj) {};
+
+	void Execute() override
+	{
+		GetGameObject().lock()->GetComponentOfType<dae::ScoreComponent>()->AddScore(25);
+	}
+};
+class DefeatCoilyWithFlyingDisc final : public Command
+{
+public:
+	DefeatCoilyWithFlyingDisc(std::weak_ptr<dae::GameObject> targetObj) :Command(targetObj) {};
+	void Execute() override
+	{
+		GetGameObject().lock()->GetComponentOfType<dae::ScoreComponent>()->AddScore(500);
+	}
+};
+class RemainingDiscsAtTheEndOfAStage final : public Command
+{
+public:
+	RemainingDiscsAtTheEndOfAStage(std::weak_ptr<dae::GameObject> targetObj) :Command(targetObj) {};
+	void Execute() override
+	{
+		GetGameObject().lock()->GetComponentOfType<dae::ScoreComponent>()->AddScore(50);
+	}
+};
+class CatchSlickAndSam final : public Command
+{
+public:
+	CatchSlickAndSam(std::weak_ptr<dae::GameObject> targetObj) :Command(targetObj) {};
+	void Execute() override
+	{
+		GetGameObject().lock()->GetComponentOfType<dae::ScoreComponent>()->AddScore(300);
+	}
+};
+
 class Kill final : public Command
 {
 public:
