@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include <vector>
 #include <memory>
-#include "Observer.h"
 
 //Idea: https://gameprogrammingpatterns.com/observer.html
 //For Components inheriting from "MonoBehavior"(Use double inheritance) :

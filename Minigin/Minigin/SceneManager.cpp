@@ -1,10 +1,8 @@
 #include "MiniginPCH.h"
 #include "SceneManager.h"
 
-#include <mutex>
 
-
-#include "Measure.h"
+#include "InputManager.h"
 #include "Scene.h"
 
 unsigned int dae::SceneManager::m_SceneIdCounter = 0;

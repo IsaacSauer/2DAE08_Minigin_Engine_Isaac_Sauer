@@ -3,9 +3,6 @@
 
 #include "GameObject.h"
 #include "RenderComponent2D.h"
-#include "Scene.h"
-#include "SceneManager.h"
-#include "Time.h"
 
 dae::TextureComponent::~TextureComponent() = default;
 

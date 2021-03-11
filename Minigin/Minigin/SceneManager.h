@@ -1,10 +1,7 @@
 #pragma once
-#include <mutex>
 #include <unordered_map>
-
-
-#include "imgui.h"
 #include "Singleton.h"
+#include <mutex>
 
 namespace dae
 {
@@ -15,11 +12,11 @@ namespace dae
 		Scene& CreateScene(const std::string& name, bool setAsActive = true);
 
 		std::shared_ptr<Scene> GetActiveScene() const { return m_ActiveScene; }
-		void SetActiveScene(UINT sceneID);
+		void SetActiveScene(uint32_t sceneID);
 
 		std::shared_ptr<Scene> GetSceneByName(const std::string& name) const;
-		std::shared_ptr<Scene> GetSceneById(UINT id) const;
-		UINT GetIdByName(const std::string& name) const;
+		std::shared_ptr<Scene> GetSceneById(uint32_t id) const;
+		uint32_t GetIdByName(const std::string& name) const;
 		
 		void FixedUpdate();
 		void Update();
@@ -30,7 +27,7 @@ namespace dae
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
-		std::unordered_map<UINT, std::shared_ptr<Scene>> m_Scenes;
+		std::unordered_map<uint32_t, std::shared_ptr<Scene>> m_Scenes;
 
 		std::shared_ptr<Scene> m_ActiveScene{};
 

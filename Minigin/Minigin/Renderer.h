@@ -6,8 +6,6 @@
 #include <glm/glm.hpp>
 #pragma warning(pop)
 
-#include <mutex>
-
 #include "Singleton.h"
 
 struct SDL_Window;

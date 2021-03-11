@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include <memory>
+#include <string>
 
 namespace dae
 {
@@ -27,13 +29,13 @@ namespace dae
 		std::shared_ptr<GameObject> GetParent() const;
 	protected:
 		friend class GameObject;
-		void SetParent(UINT id) { m_ParentID = id; }
-		void SetScene(UINT id) { m_SceneID = id; };
+		void SetParent(uint32_t id) { m_ParentID = id; }
+		void SetScene(uint32_t id) { m_SceneID = id; };
 	protected:
 		bool m_Enabled = true;
 		std::string m_Name = "Empty";
-		UINT m_ParentID{};
-		UINT m_SceneID{};
+		uint32_t m_ParentID{};
+		uint32_t m_SceneID{};
 		const bool m_IsRenderComponent{false};
 	private:
 	};

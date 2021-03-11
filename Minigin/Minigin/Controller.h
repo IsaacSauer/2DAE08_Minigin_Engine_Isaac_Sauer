@@ -1,5 +1,4 @@
 #pragma once
-#include <windows.h>
 #include <Xinput.h>
 
 class Controller final

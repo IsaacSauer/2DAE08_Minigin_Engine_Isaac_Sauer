@@ -1,6 +1,4 @@
 ﻿#pragma once
-#include <SDL_render.h>
-
 #include "BaseComponent.h"
 
 namespace dae

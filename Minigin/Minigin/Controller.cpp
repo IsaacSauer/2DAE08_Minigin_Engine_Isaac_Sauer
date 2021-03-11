@@ -1,8 +1,6 @@
 #include "MiniginPCH.h"
 #include "Controller.h"
 
-#include <iostream>
-
 void Controller::ProcessInput()
 {
 	RtlSecureZeroMemory(&m_ControllerKeyStroke, sizeof(XINPUT_KEYSTROKE));

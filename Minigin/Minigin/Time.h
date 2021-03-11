@@ -1,8 +1,5 @@
 ﻿#pragma once
-#include "BaseComponent.h"
-#include "SceneManager.h"
 #include "Singleton.h"
-#include "TextureComponent.h"
 
 namespace dae
 {

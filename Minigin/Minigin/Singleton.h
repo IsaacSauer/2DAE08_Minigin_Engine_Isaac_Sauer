@@ -1,5 +1,4 @@
 #pragma once
-#include <mutex>
 
 namespace dae
 {
@@ -22,7 +21,5 @@ namespace dae
 
 	protected:
 		Singleton() = default;
-	private:
-		static std::mutex m_GetInstanceMutex;
 	};
 }

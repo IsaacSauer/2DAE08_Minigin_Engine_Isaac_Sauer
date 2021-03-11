@@ -1,8 +1,7 @@
 #pragma once
-#include <iostream>
 #include <fstream>
 #include <thread>
-
+#include <mutex>
 #include "Singleton.h"
 
 //drag the json file to chrome://tracing to visualize
