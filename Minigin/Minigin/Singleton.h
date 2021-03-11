@@ -1,4 +1,6 @@
 #pragma once
+#include <mutex>
+
 namespace dae
 {
 	template <typename T>
@@ -11,6 +13,7 @@ namespace dae
 			return instance;
 		}
 
+
 		virtual ~Singleton() = default;
 		Singleton(const Singleton& other) = delete;
 		Singleton(Singleton&& other) = delete;
@@ -19,5 +22,7 @@ namespace dae
 
 	protected:
 		Singleton() = default;
+	private:
+		static std::mutex m_GetInstanceMutex;
 	};
 }

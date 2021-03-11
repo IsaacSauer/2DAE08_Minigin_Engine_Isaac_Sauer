@@ -1,12 +1,12 @@
 ﻿#pragma once
-#include "MonoBehavior.h"
+#include "BaseComponent.h"
 #include "SceneManager.h"
 #include "Singleton.h"
 #include "TextureComponent.h"
 
 namespace dae
 {
-	class Timer : public Singleton<Timer>
+	class Time : public Singleton<Time>
 	{
 	public:
 		float ElapsedSec() const { return dTime; };
@@ -23,6 +23,5 @@ namespace dae
 		float fixedTimeStep{};
 	};
 	//Macros
-#define TIMER dae::Timer::GetInstance()
-
+#define TIME dae::Time::GetInstance()
 }

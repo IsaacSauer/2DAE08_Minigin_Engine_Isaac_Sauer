@@ -1,5 +1,5 @@
 #pragma once
-#include "MonoBehavior.h"
+#include "BaseComponent.h"
 
 
 namespace dae
@@ -7,7 +7,7 @@ namespace dae
 	class Font;
 	class Texture2D;
 
-	class TextComponent : public dae::MonoBehavior
+	class TextComponent : public dae::BaseComponent
 	{
 	public:
 		virtual void FixedUpdate() override{};

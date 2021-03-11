@@ -1,11 +1,11 @@
 ﻿#pragma once
-#include "MonoBehavior.h"
+#include "BaseComponent.h"
 
 namespace dae
 {
 	class TextComponent;
 
-	class FPSComponent : public dae::MonoBehavior
+	class FPSComponent : public dae::BaseComponent
 	{
 	public:
 		void Update() override;

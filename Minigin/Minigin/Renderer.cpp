@@ -38,6 +38,12 @@ void dae::Renderer::Init(SDL_Window * window)
 	ImGui::CreateContext();
 	ImGui_ImplSDL2_InitForOpenGL(window, SDL_GL_GetCurrentContext());
 	ImGui_ImplOpenGL2_Init();
+
+
+	int w{};
+	int h{};
+	SDL_GetWindowSize(SDL_GL_GetCurrentWindow(), &w, &h);
+	m_CurrentWindowDimensions = { w, h };
 }
 
 void dae::Renderer::Render()

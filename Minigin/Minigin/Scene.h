@@ -12,6 +12,7 @@ namespace dae
 
 		void FixedUpdate();
 		void Update();
+		void Start();
 		void Render() const;
 
 		~Scene();
@@ -34,6 +35,8 @@ namespace dae
 
 
 		UINT m_SceneID{};
+
+		std::mutex m_AddObjectMutex{};
 	};
 
 }

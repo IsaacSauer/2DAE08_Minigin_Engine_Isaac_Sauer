@@ -2,12 +2,14 @@
 #include "ScoreComponent.h"
 
 #include "Command.h"
+#include "ScoreObserverComponent.h"
 
 void dae::ScoreComponent::EvaluateScore()
 {
-	auto scoreAttributes = std::make_shared<ScoreEventAttributes>();
-	scoreAttributes->score = m_Score;
-	Notify(PARENT->shared_from_this(), scoreAttributes);
+	for(auto obs : m_Subject.GetObservers())
+	{
+		obs.lock()->ScoreChanged(m_Score);
+	}
 }
 
 int dae::ScoreComponent::GetScore() const
@@ -25,4 +27,14 @@ void dae::ScoreComponent::AddScore(int value)
 {
 	m_Score += value;
 	EvaluateScore();
+}
+
+void dae::ScoreComponent::AddObserver(const std::weak_ptr<ScoreObserverComponent>& add)
+{
+	m_Subject.AddObserver(add);
+}
+
+void dae::ScoreComponent::RemoveObserver(const std::weak_ptr<ScoreObserverComponent>& remove)
+{
+	m_Subject.RemoveObserver(remove);
 }

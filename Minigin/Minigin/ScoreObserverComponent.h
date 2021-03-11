@@ -1,5 +1,5 @@
 #pragma once
-#include "MonoBehavior.h"
+#include "BaseComponent.h"
 #include "Observer.h"
 #include "TextComponent.h"
 
@@ -7,10 +7,14 @@ namespace dae
 {
 	class TextComponent;
 
-	class ScoreObserverComponent : public MonoBehavior, public Observer
+	class ScoreObserver : public Observer
 	{
 	public:
-		virtual void OnNotify(std::shared_ptr<dae::GameObject> go, std::shared_ptr<EventAttributes> event) override;
+		virtual void ScoreChanged(int value) = 0;
+	};
+
+	class ScoreObserverComponent : public BaseComponent, public ScoreObserver
+	{
 	public:
 		ScoreObserverComponent() = default;
 		~ScoreObserverComponent() override = default;
@@ -20,8 +24,8 @@ namespace dae
 		ScoreObserverComponent& operator=(ScoreObserverComponent&& rhs) = delete;
 
 		void SetTextComponent(const std::shared_ptr<dae::TextComponent>& textComp) { m_wTextComponent = textComp; }
+		void ScoreChanged(int value) override;
 	private:
 		std::weak_ptr<TextComponent> m_wTextComponent{};
 	};
 }
-

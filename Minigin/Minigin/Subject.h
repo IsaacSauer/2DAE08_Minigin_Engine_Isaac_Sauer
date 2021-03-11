@@ -22,22 +22,51 @@
 //if the cast is valid : ->Handle the information to your needs
 
 namespace dae {
-	class EventAttributes;
-	class GameObject;
-	class Observer;
 
+	template <typename T>
 	class Subject
 	{
 	public:
 		Subject() = default;
-		
-		void AddObserver(const std::weak_ptr<dae::Observer>& observer);
 
-		void RemoveObserver(const std::weak_ptr<dae::Observer>& observer);
+		void AddObserver(const std::weak_ptr<T>& observer);
+		void RemoveObserver(const std::weak_ptr<T>& observer);
 
-	protected:
-		void Notify(std::shared_ptr<dae::GameObject> go, std::shared_ptr<EventAttributes> event);
+		const std::vector<std::weak_ptr<T>>& GetObservers() const;
 	private:
-		std::vector<std::weak_ptr<dae::Observer>> m_Observers{};
+		std::vector<std::weak_ptr<T>> m_Observers{};
 	};
+
+	template <typename T>
+	void Subject<T>::AddObserver(const std::weak_ptr<T>& observer)
+	{
+		if (std::find_if(m_Observers.begin(), m_Observers.end(),
+			[&observer](const std::weak_ptr<T>& A)
+			{
+				return !A.owner_before(observer) && !observer.owner_before(A);
+			}) == m_Observers.end())
+		{
+			m_Observers.push_back(observer);
+		}
+	}
+
+	template <typename T>
+	void Subject<T>::RemoveObserver(const std::weak_ptr<T>& observer)
+	{
+		auto result = std::find_if(m_Observers.begin(), m_Observers.end(),
+			[&observer](const std::weak_ptr<T>& A)
+			{
+				return !A.owner_before(observer) && !observer.owner_before(A);
+			});
+		if (result != m_Observers.end())
+		{
+			m_Observers.erase(result);
+		}
+	}
+
+	template <typename T>
+	const std::vector<std::weak_ptr<T>>& Subject<T>::GetObservers() const
+	{
+		return m_Observers;
+	}
 }

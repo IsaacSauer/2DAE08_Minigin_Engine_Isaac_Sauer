@@ -39,7 +39,7 @@ void dae::TextComponent::Update()
 		m_sTexture = std::make_shared<Texture2D>(texture);
 		m_NeedsUpdate = false;
 
-		const auto result = PARENT->GetComponentOfType<RenderComponent2D>();
+		const auto result = GetParent()->GetComponentOfType<RenderComponent2D>();
 		if (result)
 		{
 			result->RequestRender(m_sTexture);

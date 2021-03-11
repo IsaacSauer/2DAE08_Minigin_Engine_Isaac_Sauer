@@ -1,10 +1,10 @@
 ﻿#pragma once
-#include "MonoBehavior.h"
+#include "BaseComponent.h"
 #include "Texture2D.h"
 
 namespace dae
 {
-	class TextureComponent final : public MonoBehavior
+	class TextureComponent final : public BaseComponent
 	{
 	public:
 	

@@ -25,17 +25,11 @@
     <Filter Include="Source Files\Engine\GameObject">
       <UniqueIdentifier>{8733a88f-8777-4e87-8ee0-5e4245fed19c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine\Scene">
-      <UniqueIdentifier>{a248fcc3-b761-4049-b272-74242318e666}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Engine\Components">
       <UniqueIdentifier>{04959c78-6816-4d4d-82b3-a32ab1e78bcb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine\Managers">
       <UniqueIdentifier>{83bf1dde-1d11-4a8a-9f2a-96a4f94f4ce4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\Components\MonoBehavior">
-      <UniqueIdentifier>{2e72b0b2-48c0-4b0c-afe2-ed4fcfa80dad}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine\Components\InheritedComponents">
       <UniqueIdentifier>{90d981ba-4b33-428c-99d7-b845e3537a2d}</UniqueIdentifier>
@@ -67,29 +61,35 @@
     <Filter Include="Source Files\Engine\UIElements\InheritedElements">
       <UniqueIdentifier>{b00b857e-d327-4f47-ada6-efc7390e7b0c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine\Components\InheritedComponents\HealthComponent">
-      <UniqueIdentifier>{a3f85e8c-5b7a-4f47-8fc2-cdd1c8a81897}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Engine\Observer">
       <UniqueIdentifier>{e98744d3-29a3-4fbe-bf58-73eaf9e7b589}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine\InheritEnum">
-      <UniqueIdentifier>{df7192e7-3041-4fda-ad9f-c2847a6788c5}</UniqueIdentifier>
+    <Filter Include="Source Files\Engine\Components\BaseComponent">
+      <UniqueIdentifier>{2e72b0b2-48c0-4b0c-afe2-ed4fcfa80dad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine\Components\InheritedComponents\ScoreComponent">
+    <Filter Include="Game Files">
+      <UniqueIdentifier>{dce17ff1-4b10-406b-8e4d-04e0eec4166d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Files\Components">
+      <UniqueIdentifier>{8bf8d8ef-e6e7-4940-9810-5cb484c512bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Files\Components\HealthComponent">
+      <UniqueIdentifier>{a3f85e8c-5b7a-4f47-8fc2-cdd1c8a81897}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Files\Components\ScoreComponent">
       <UniqueIdentifier>{13a8c257-d9e0-43f5-a7c7-c92969dbe983}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Singleton">
+      <UniqueIdentifier>{e079f7e1-5631-4e6c-b67a-d032588f75b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Benchmarking">
+      <UniqueIdentifier>{414a10fd-f91b-4e43-abea-b62ce924592f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Scene">
+      <UniqueIdentifier>{a248fcc3-b761-4049-b272-74242318e666}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MiniginPCH.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MonoBehavior.h">
-      <Filter>Source Files\Engine\Components\MonoBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneObject.h">
-      <Filter>Source Files\Engine\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Source Files\Engine\Types</Filter>
     </ClInclude>
@@ -102,9 +102,6 @@
     <ClInclude Include="Transform.h">
       <Filter>Source Files\Engine\Types</Filter>
     </ClInclude>
-    <ClInclude Include="TextObject.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Source Files\Engine\Scene</Filter>
     </ClInclude>
@@ -116,9 +113,6 @@
     </ClInclude>
     <ClInclude Include="FPSComponent.h">
       <Filter>Source Files\Engine\Components\InheritedComponents\FPSComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="Minigin.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="RenderComponent2D.h">
       <Filter>Source Files\Engine\Components\InheritedComponents\RenderComponent</Filter>
@@ -133,9 +127,6 @@
       <Filter>Source Files\Engine\Managers</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Source Files\Engine\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
       <Filter>Source Files\Engine\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Controller.h">
@@ -168,9 +159,6 @@
     <ClInclude Include="..\3rdParty\imgui-1.81\backends\imgui_impl_sdl.h">
       <Filter>Source Files\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>Source Files\Engine\Core</Filter>
-    </ClInclude>
     <ClInclude Include="RenderComponentUI.h">
       <Filter>Source Files\Engine\Components\InheritedComponents\UIComponent</Filter>
     </ClInclude>
@@ -181,40 +169,52 @@
       <Filter>Source Files\Engine\UIElements\InheritedElements</Filter>
     </ClInclude>
     <ClInclude Include="HealthComponent.h">
-      <Filter>Source Files\Engine\Components\InheritedComponents\HealthComponent</Filter>
+      <Filter>Game Files\Components\HealthComponent</Filter>
     </ClInclude>
     <ClInclude Include="Observer.h">
       <Filter>Source Files\Engine\Observer</Filter>
-    </ClInclude>
-    <ClInclude Include="InheritEnum.h">
-      <Filter>Source Files\Engine\InheritEnum</Filter>
     </ClInclude>
     <ClInclude Include="Subject.h">
       <Filter>Source Files\Engine\Observer</Filter>
     </ClInclude>
     <ClInclude Include="HealthObserverComponent.h">
-      <Filter>Source Files\Engine\Components\InheritedComponents\HealthComponent</Filter>
+      <Filter>Game Files\Components\HealthComponent</Filter>
     </ClInclude>
     <ClInclude Include="ScoreComponent.h">
-      <Filter>Source Files\Engine\Components\InheritedComponents\ScoreComponent</Filter>
+      <Filter>Game Files\Components\ScoreComponent</Filter>
     </ClInclude>
     <ClInclude Include="ScoreObserverComponent.h">
-      <Filter>Source Files\Engine\Components\InheritedComponents\ScoreComponent</Filter>
+      <Filter>Game Files\Components\ScoreComponent</Filter>
     </ClInclude>
     <ClInclude Include="UITextBox.h">
       <Filter>Source Files\Engine\UIElements\InheritedElements</Filter>
     </ClInclude>
+    <ClInclude Include="BaseComponent.h">
+      <Filter>Source Files\Engine\Components\BaseComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Minigin.h">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniginPCH.h">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Source Files\Engine\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>Source Files\Engine\Benchmarking</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Measure.h">
+      <Filter>Source Files\Engine\Benchmarking</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentLoader.h">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MiniginPCH.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MonoBehavior.cpp">
-      <Filter>Source Files\Engine\Components\MonoBehavior</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Font.cpp">
       <Filter>Source Files\Engine\Types</Filter>
     </ClCompile>
@@ -227,9 +227,6 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files\Engine\Types</Filter>
     </ClCompile>
-    <ClCompile Include="TextObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files\Engine\Scene</Filter>
     </ClCompile>
@@ -241,9 +238,6 @@
     </ClCompile>
     <ClCompile Include="FPSComponent.cpp">
       <Filter>Source Files\Engine\Components\InheritedComponents\FPSComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="Minigin.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RenderComponent2D.cpp">
       <Filter>Source Files\Engine\Components\InheritedComponents\RenderComponent</Filter>
@@ -258,9 +252,6 @@
       <Filter>Source Files\Engine\Managers</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Source Files\Engine\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
       <Filter>Source Files\Engine\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Command.cpp">
@@ -300,28 +291,43 @@
       <Filter>Source Files\Engine\UIElements\InheritedElements</Filter>
     </ClCompile>
     <ClCompile Include="HealthComponent.cpp">
-      <Filter>Source Files\Engine\Components\InheritedComponents\HealthComponent</Filter>
+      <Filter>Game Files\Components\HealthComponent</Filter>
     </ClCompile>
     <ClCompile Include="Observer.cpp">
       <Filter>Source Files\Engine\Observer</Filter>
-    </ClCompile>
-    <ClCompile Include="InheritEnum.cpp">
-      <Filter>Source Files\Engine\InheritEnum</Filter>
     </ClCompile>
     <ClCompile Include="Subject.cpp">
       <Filter>Source Files\Engine\Observer</Filter>
     </ClCompile>
     <ClCompile Include="HealthObserverComponent.cpp">
-      <Filter>Source Files\Engine\Components\InheritedComponents\HealthComponent</Filter>
+      <Filter>Game Files\Components\HealthComponent</Filter>
     </ClCompile>
     <ClCompile Include="ScoreComponent.cpp">
-      <Filter>Source Files\Engine\Components\InheritedComponents\ScoreComponent</Filter>
+      <Filter>Game Files\Components\ScoreComponent</Filter>
     </ClCompile>
     <ClCompile Include="ScoreObserverComponent.cpp">
-      <Filter>Source Files\Engine\Components\InheritedComponents\ScoreComponent</Filter>
+      <Filter>Game Files\Components\ScoreComponent</Filter>
     </ClCompile>
     <ClCompile Include="UITextBox.cpp">
       <Filter>Source Files\Engine\UIElements\InheritedElements</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseComponent.cpp">
+      <Filter>Source Files\Engine\Components\BaseComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniginPCH.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Minigin.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Source Files\Engine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Singleton.cpp">
+      <Filter>Source Files\Engine\Singleton</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

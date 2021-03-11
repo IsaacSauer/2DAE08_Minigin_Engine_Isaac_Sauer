@@ -10,19 +10,19 @@ void dae::RenderComponent2D::Render() const
 {
 	if(m_sTextureToRender)
 	{
-		const auto transform = PARENT->GetTransform();
+		auto transform = GetParent()->GetTransform();
 		RENDERER.RenderTexture(*m_sTextureToRender.get(), transform.GetPosition().x, transform.GetPosition().y);
 	}
 }
 
 dae::RenderComponent2D::RenderComponent2D()
-	:MonoBehavior(true)
+	:BaseComponent(true)
 {
 }
 
 
 dae::RenderComponent2D::RenderComponent2D(std::shared_ptr<Texture2D> texToRender)
-	:MonoBehavior()
+	:BaseComponent()
 	, m_sTextureToRender{texToRender}
 {
 }

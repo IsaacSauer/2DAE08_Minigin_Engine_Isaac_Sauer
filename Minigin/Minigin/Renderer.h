@@ -6,6 +6,8 @@
 #include <glm/glm.hpp>
 #pragma warning(pop)
 
+#include <mutex>
+
 #include "Singleton.h"
 
 struct SDL_Window;
@@ -29,17 +31,14 @@ namespace dae
 
 		SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
 
-		static glm::vec2 GetCurrentWindowDimensions()
-		{
-			int w{};
-			int h{};
-			SDL_GetWindowSize(SDL_GL_GetCurrentWindow(), &w, &h);
-			return { w, h };
-		}
+		const glm::vec2& GetCurrentWindowDimensions() const {return m_CurrentWindowDimensions;}
+
 	private:
 		SDL_Renderer* m_Renderer{};
 		SDL_Window* m_Window{};
 
+		glm::vec2 m_CurrentWindowDimensions;
+		
 		bool m_ShowDemo{ true };
 	};
 

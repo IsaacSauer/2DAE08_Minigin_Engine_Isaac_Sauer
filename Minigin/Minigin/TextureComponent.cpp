@@ -5,12 +5,12 @@
 #include "RenderComponent2D.h"
 #include "Scene.h"
 #include "SceneManager.h"
-#include "Timer.h"
+#include "Time.h"
 
 dae::TextureComponent::~TextureComponent() = default;
 
 dae::TextureComponent::TextureComponent(std::shared_ptr<Texture2D> tex)
-	:MonoBehavior()
+	:BaseComponent()
 	,m_sTexture{tex}
 {
 	m_Name = "Texture2D";
@@ -24,8 +24,7 @@ void dae::TextureComponent::Update()
 {
 	if(m_UpdateRenderer)
 	{
-		auto test = SCENEMANAGER.GetSceneById(m_SceneID)->GetObjectById(m_ParentID);
-		const auto result = PARENT->GetComponentOfType<RenderComponent2D>();
+		const auto result = GetParent()->GetComponentOfType<RenderComponent2D>();
 		if(result)
 		{
 			result->RequestRender(m_sTexture);

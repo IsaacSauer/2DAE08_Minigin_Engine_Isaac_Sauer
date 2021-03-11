@@ -7,6 +7,7 @@
 #include "Renderer.h"
 #include "Texture2D.h"
 #include "Font.h"
+#include "Measure.h"
 
 void dae::ResourceManager::Init(const std::string& dataPath)
 {
@@ -32,10 +33,12 @@ void dae::ResourceManager::Init(const std::string& dataPath)
 
 std::shared_ptr<dae::Texture2D> dae::ResourceManager::LoadTexture(const std::string& file)
 {
+	std::lock_guard<std::mutex> guard(m_LoadTextureMutex);
+	START_MEASUREMENT();
+	
 	if (m_Textures.find(file) != m_Textures.end())
 		return m_Textures.at(file);
 
-	
 	const auto fullPath = m_DataPath + file;
 	auto texture = IMG_LoadTexture(Renderer::GetInstance().GetSDLRenderer(), fullPath.c_str());
 	if (texture == nullptr) 
@@ -48,6 +51,9 @@ std::shared_ptr<dae::Texture2D> dae::ResourceManager::LoadTexture(const std::str
 
 std::shared_ptr<dae::Font> dae::ResourceManager::LoadFont(const std::string& file, unsigned int size)
 {
+	std::lock_guard<std::mutex> guard(m_LoadFontMutex);
+	START_MEASUREMENT();
+
 	//if (m_Fonts.find(file) != m_Fonts.end())
 	//	return m_Fonts.at(file);
 	//m_Fonts.insert({ file, std::make_shared<Font>(m_DataPath + file, size) });

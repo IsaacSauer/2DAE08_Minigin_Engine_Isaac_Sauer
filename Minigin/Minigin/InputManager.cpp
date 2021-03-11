@@ -107,9 +107,9 @@ bool dae::InputManager::IsButtonReleased(Controller::ControllerButton button, UI
 	return m_Controllers.at(controllerId)->IsReleased(button);
 }
 
-bool dae::InputManager::CheckSDLEvent(SDL_Keycode key, SDLEvent type)
+bool dae::InputManager::CheckSDLEvent(SDL_Keycode key, SDLEvent type) const
 {
-	for(SDL_Event& event : m_SDLEvents)
+	for(const SDL_Event& event : m_SDLEvents)
 	{
 		switch (type)
 		{
@@ -135,6 +135,10 @@ bool dae::InputManager::CheckSDLEvent(SDL_Keycode key, SDLEvent type)
 
 UINT dae::InputManager::AddController()
 {
+	//MUTEX
+	std::lock_guard<std::mutex> guard(m_ControllersMutex);
+
+
 	UINT size = UINT(m_Controllers.size());
 	if (size < 4)
 	{

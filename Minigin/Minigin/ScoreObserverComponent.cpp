@@ -4,10 +4,7 @@
 #include "ScoreComponent.h"
 #include "TextComponent.h"
 
-void dae::ScoreObserverComponent::OnNotify(std::shared_ptr<dae::GameObject> go, std::shared_ptr<EventAttributes> event)
+void dae::ScoreObserverComponent::ScoreChanged(int value)
 {
-	if(auto cast = std::dynamic_pointer_cast<ScoreEventAttributes>(event))
-	{
-		m_wTextComponent.lock()->SetText("Score: " + std::to_string(cast->score));
-	}
+	m_wTextComponent.lock()->SetText("Score: " + std::to_string(value));
 }

@@ -1,26 +1,35 @@
 ﻿#pragma once
-#include "MonoBehavior.h"
+#include "BaseComponent.h"
 #include "Observer.h"
 #include "TextComponent.h"
 
-class HealthObserverComponent : public dae::MonoBehavior, public dae::Observer
+namespace dae
 {
-public:
-	virtual void Update() override;
+	class HealthObserver : public Observer
+	{
+	public:
+		virtual void Died(const std::string& name) = 0;
+		virtual void LivesChanged(const std::string& name, int lives) = 0;
+	};
 
-public:
-	virtual void OnNotify(std::shared_ptr<dae::GameObject> go, std::shared_ptr<dae::EventAttributes> event) override;
-	
-public:
-	HealthObserverComponent() = default;
-	virtual ~HealthObserverComponent() override = default;
-	HealthObserverComponent(const HealthObserverComponent& other) = delete;
-	HealthObserverComponent(HealthObserverComponent&& other) = delete;
-	HealthObserverComponent& operator=(const HealthObserverComponent& rhs) = delete;
-	HealthObserverComponent& operator=(HealthObserverComponent&& rhs) = delete;
+	class HealthObserverComponent : public BaseComponent, public HealthObserver
+	{
+	public:
+		virtual void Update() override;
 
-	void SetTextComponent(const std::shared_ptr<dae::TextComponent>& textComp) { m_wTextComponent = textComp; }
-private:
-	std::weak_ptr<dae::TextComponent> m_wTextComponent{};
+	public:
+		HealthObserverComponent() = default;
+		virtual ~HealthObserverComponent() override = default;
+		HealthObserverComponent(const HealthObserverComponent& other) = delete;
+		HealthObserverComponent(HealthObserverComponent&& other) = delete;
+		HealthObserverComponent& operator=(const HealthObserverComponent& rhs) = delete;
+		HealthObserverComponent& operator=(HealthObserverComponent&& rhs) = delete;
 
-};
+		void SetTextComponent(const std::shared_ptr<dae::TextComponent>& textComp) { m_wTextComponent = textComp; }
+
+		void Died(const std::string& name) override;
+		void LivesChanged(const std::string& name, int lives) override;
+	private:
+		std::weak_ptr<dae::TextComponent> m_wTextComponent{};
+	};
+}

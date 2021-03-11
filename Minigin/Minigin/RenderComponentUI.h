@@ -2,13 +2,13 @@
 
 #include "imgui.h"
 
-#include "MonoBehavior.h"
+#include "BaseComponent.h"
 
 namespace dae
 {
 	class UIElement;
 
-	class RenderComponentUI : public MonoBehavior
+	class RenderComponentUI : public BaseComponent
 	{
 	public:
 		RenderComponentUI() = default;

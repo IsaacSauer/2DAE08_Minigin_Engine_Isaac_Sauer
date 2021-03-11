@@ -1,4 +1,5 @@
 #pragma once
+#include <mutex>
 #include <unordered_map>
 
 
@@ -22,6 +23,8 @@ namespace dae
 		
 		void FixedUpdate();
 		void Update();
+		void Start();
+
 		
 		void Render() const;
 	private:
@@ -32,6 +35,9 @@ namespace dae
 		std::shared_ptr<Scene> m_ActiveScene{};
 
 		static unsigned int m_SceneIdCounter;
+
+		std::mutex m_CreateSceneMutex;
+		std::mutex m_SetActiveSceneMutex;
 	};
 
 	//Macros

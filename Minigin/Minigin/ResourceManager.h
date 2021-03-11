@@ -1,4 +1,5 @@
 #pragma once
+#include <mutex>
 #include <unordered_map>
 
 #include "Singleton.h"
@@ -20,6 +21,9 @@ namespace dae
 
 		std::unordered_map<std::string, std::shared_ptr<Texture2D>> m_Textures{};
 		std::unordered_map<std::string, std::shared_ptr<Font>> m_Fonts{};
+
+		std::mutex m_LoadTextureMutex;
+		std::mutex m_LoadFontMutex;
 	};
 
 	//Macros

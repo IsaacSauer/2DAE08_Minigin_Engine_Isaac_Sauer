@@ -1,16 +1,19 @@
 #pragma once
+#include <mutex>
+
 #include "Transform.h"
 #include "unordered_map"
 
 namespace dae
 {
-	class MonoBehavior;
+	class BaseComponent;
 	class GameObject final : public std::enable_shared_from_this<GameObject>
 	{
 		friend class Scene;
 	public:
 		void FixedUpdate();
 		void Update();
+		void Start();
 
 		GameObject();
 		GameObject(const std::string& name);
@@ -23,10 +26,12 @@ namespace dae
 
 		std::shared_ptr<GameObject> GetShared();
 	public:
-		bool AddComponent(std::shared_ptr<MonoBehavior> component);
+		bool AddComponent(std::shared_ptr<BaseComponent> component);
+
 
 		UINT GetID() const;
 		UINT GetSceneID() const;
+		const std::string& GetName() const { return m_Name; }
 		
 		const Transform& GetTransform() const { return m_Transform; }
 		void SetTransform(const Transform& transform) { m_Transform = transform; }
@@ -51,16 +56,16 @@ namespace dae
 		bool m_Enabled = true;
 		
 		static unsigned int m_GameObjectIdCounter;
-
+		static std::mutex m_AddComponentMutex;
 		//Components
-		std::unordered_map<UINT, std::shared_ptr<MonoBehavior>> m_Components{};
+		std::unordered_map<UINT, std::shared_ptr<BaseComponent>> m_Components{};
 	};
 
 	template <typename T>
 	std::shared_ptr<T> GameObject::GetComponentOfType() const
 	{
 		auto result = std::find_if(m_Components.begin(), m_Components.end(),
-			[](const std::pair<UINT, std::shared_ptr<MonoBehavior>>& A)
+			[](const std::pair<UINT, std::shared_ptr<BaseComponent>>& A)
 			{
 				return std::dynamic_pointer_cast<T>(A.second);
 			});
@@ -76,7 +81,7 @@ namespace dae
 		std::vector<std::shared_ptr<T>> collection{};
 		for (auto it = m_Components.begin(); it != m_Components.end(); ++it)
 		{
-			it = std::find_if(it, m_Components.end(), [](const std::pair<UINT, std::shared_ptr<MonoBehavior>>& A)
+			it = std::find_if(it, m_Components.end(), [](const std::pair<UINT, std::shared_ptr<BaseComponent>>& A)
 				{
 					return std::dynamic_pointer_cast<T>(A.second);
 				});

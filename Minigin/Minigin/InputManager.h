@@ -6,6 +6,7 @@
 
 #include "Command.h"
 #include "Controller.h"
+#include "Measure.h"
 #include "Singleton.h"
 
 namespace dae
@@ -36,7 +37,7 @@ namespace dae
 		bool IsButtonPressed(Controller::ControllerButton button, UINT controllerId = 0) const;
 		bool IsButtonReleased(Controller::ControllerButton button, UINT controllerId = 0) const;
 
-		bool CheckSDLEvent(SDL_Keycode, SDLEvent);
+		bool CheckSDLEvent(SDL_Keycode, SDLEvent) const;
 
 		template <typename T>
 		bool AddKeyboardCommand(SDLInputEvent key, std::unique_ptr<T> upCommand);
@@ -52,12 +53,25 @@ namespace dae
 
 		std::vector<SDL_Event> m_SDLEvents;
 		std::vector<std::unique_ptr<Controller>> m_Controllers{};
+
+		//MUTEXES
+		std::mutex m_ControllerCommandsMutex;
+		std::mutex m_SDLCommandsMutex;
+		std::mutex m_ControllersMutex;
 	};
 
-	//Macros
-#define CreateCommand(commandName) std::move(std::make_unique<commandName>(commandName{}))
-#define CreateCommandToObject(commandName, gameObj) std::move(std::make_unique<commandName>(commandName{gameObj}))
+	template <typename commandName>
+	inline std::unique_ptr<commandName> CreateCommand()
+	{
+		return std::move(std::make_unique<commandName>(commandName{}));
+	}
+	template <typename commandName>
+	inline std::unique_ptr<commandName> CreateCommand(const std::shared_ptr<GameObject>& go)
+	{
+		return std::move(std::make_unique<commandName>(go));
+	}
 
+	//Macros
 #define INPUTMANAGER dae::InputManager::GetInstance()
 }
 
@@ -70,6 +84,10 @@ bool dae::InputManager::AddKeyboardCommand(SDLInputEvent key, std::unique_ptr<T>
 		std::cerr << "Invalid command!\n";
 		return false;
 	}
+
+	//MUTEX
+	std::lock_guard<std::mutex> guard(m_SDLCommandsMutex);
+	START_MEASUREMENT();
 
 	//assign command
 	auto result = m_SDLInputCommands.insert(
@@ -96,6 +114,10 @@ inline bool dae::InputManager::AddControllerCommand(ControllerInputEvent key, st
 		std::cerr << "Can't bind Command to key, specified controller doesn't exist\n";
 		return false;
 	}
+
+	//MUTEX
+	std::lock_guard<std::mutex> guard(m_ControllerCommandsMutex);
+	START_MEASUREMENT();
 
 	//assign command
 	auto result = m_ControllerInputCommands.insert(

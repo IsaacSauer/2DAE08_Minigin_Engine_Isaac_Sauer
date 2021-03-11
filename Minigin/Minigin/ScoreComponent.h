@@ -1,21 +1,19 @@
 #pragma once
-#include "MonoBehavior.h"
+#include "BaseComponent.h"
 #include "Subject.h"
 
 namespace dae
 {
-	class ScoreEventAttributes : public EventAttributes
-	{
-	public:
-		int score{};
-	};
-	
-	class ScoreComponent : public dae::MonoBehavior, public dae::Subject
+	class ScoreObserverComponent;
+	class ScoreComponent : public BaseComponent
 	{
 	public:
 		int GetScore() const;
 		void SetScore(int value);
 		void AddScore(int value);
+	public:
+		void AddObserver(const std::weak_ptr<ScoreObserverComponent>& add);
+		void RemoveObserver(const std::weak_ptr<ScoreObserverComponent>& remove);
 	public:
 		ScoreComponent() = default;
 		virtual ~ScoreComponent() override = default;
@@ -28,6 +26,7 @@ namespace dae
 		int m_Score{};
 
 		void EvaluateScore();
+
+		Subject<ScoreObserverComponent> m_Subject;
 	};
 }
-

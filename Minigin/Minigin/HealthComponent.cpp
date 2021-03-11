@@ -2,6 +2,7 @@
 #include "HealthComponent.h"
 
 #include "GameObject.h"
+#include "HealthObserverComponent.h"
 #include "Scene.h"
 
 void dae::HealthComponent::AddHealth(float delta)
@@ -48,18 +49,41 @@ int dae::HealthComponent::GetLives() const
 	return m_Lives;
 }
 
+void dae::HealthComponent::AddObserver(const std::weak_ptr<HealthObserverComponent>& add)
+{
+	m_Subject.AddObserver(add);
+}
+
+void dae::HealthComponent::RemoveObserver(const std::weak_ptr<HealthObserverComponent>& remove)
+{
+	m_Subject.RemoveObserver(remove);
+}
+
 void dae::HealthComponent::Update()
 {
 	//EvaluateHealth();
 }
 
+void dae::HealthComponent::Start()
+{
+	m_Name = GetParent()->GetName();
+	EvaluateHealth();
+}
+
+dae::HealthComponent::HealthComponent()
+	:BaseComponent()
+{
+}
+
 void dae::HealthComponent::EvaluateHealth()
 {
-	auto healthAttributes = std::make_shared<HealthEventAttributes>();
-	healthAttributes->health = m_Health;
-	healthAttributes->maxHealth = m_MaxHealth;
-	healthAttributes->lives = m_Lives;
-	healthAttributes->state = HealthEventAttributes::HealthState(m_Health > 0.f);
-	healthAttributes->name = PARENT->ToString();
-	Notify(PARENT->shared_from_this(), healthAttributes);
+	for (auto& obs : m_Subject.GetObservers())
+	{
+		obs.lock()->LivesChanged(m_Name, m_Lives);
+		//Died
+		if (m_Health <= 0.f)
+		{
+			obs.lock()->Died(m_Name);
+		}
+	}
 }

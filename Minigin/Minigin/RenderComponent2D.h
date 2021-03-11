@@ -1,13 +1,13 @@
 ﻿#pragma once
 #include <SDL_render.h>
 
-#include "MonoBehavior.h"
+#include "BaseComponent.h"
 
 namespace dae
 {
 	class Texture2D;
 
-	class RenderComponent2D : public dae::MonoBehavior
+	class RenderComponent2D : public dae::BaseComponent
 	{
 	public:
 		void RequestRender(std::shared_ptr<Texture2D> tex) { m_sTextureToRender = tex; }

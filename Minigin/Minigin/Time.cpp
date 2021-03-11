@@ -1,2 +1,2 @@
 ﻿#include "MiniginPCH.h"
-#include "Timer.h"
+#include "Time.h"

@@ -1,6 +1,7 @@
 #include "MiniginPCH.h"
 #include "Scene.h"
 #include "GameObject.h"
+#include "InputManager.h"
 #include "RenderComponent2D.h"
 #include "RenderComponentUI.h"
 
@@ -19,6 +20,9 @@ std::shared_ptr<GameObject> Scene::GetObjectById(UINT id) const
 
 std::shared_ptr<GameObject> Scene::CreateGameObjectInScene(const std::string& name)
 {
+	std::lock_guard<std::mutex> guard(m_AddObjectMutex);
+	START_MEASUREMENT();
+
 	auto go = std::make_shared<GameObject>(name);
 	go->m_SceneID = m_SceneID;
 	Add(go);
@@ -36,8 +40,7 @@ Scene::~Scene() = default;
 void Scene::Add(const std::shared_ptr<GameObject>& object)
 {
 	object->m_SceneID = m_SceneID;
-	m_Objects.insert({GameObject::m_GameObjectIdCounter, object});
-	GameObject::m_GameObjectIdCounter++;
+	m_Objects.insert({ object->m_ID, object});
 }
 
 void Scene::FixedUpdate()
@@ -53,6 +56,14 @@ void Scene::Update()
 	for (auto& object : m_Objects)
 	{
 		object.second->Update();
+	}
+}
+
+void Scene::Start()
+{
+	for (auto& object : m_Objects)
+	{
+		object.second->Start();
 	}
 }
 

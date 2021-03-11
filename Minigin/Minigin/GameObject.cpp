@@ -1,10 +1,12 @@
 #include "MiniginPCH.h"
 #include "GameObject.h"
 
-#include "MonoBehavior.h"
+#include "BaseComponent.h"
+#include "InputManager.h"
 #include "ResourceManager.h"
 
 unsigned int dae::GameObject::m_GameObjectIdCounter = 0;
+std::mutex dae::GameObject::m_AddComponentMutex{};
 
 dae::GameObject::~GameObject() = default;
 
@@ -13,8 +15,11 @@ std::shared_ptr<dae::GameObject> dae::GameObject::GetShared()
 	return shared_from_this();
 }
 
-bool dae::GameObject::AddComponent(std::shared_ptr<MonoBehavior> component)
+bool dae::GameObject::AddComponent(std::shared_ptr<BaseComponent> component)
 {
+	std::lock_guard<std::mutex> guard(m_AddComponentMutex);
+	START_MEASUREMENT();
+
 	if(component)
 	{
 		const auto result = m_Components.insert(std::make_pair((UINT)m_Components.size(), component));
@@ -52,9 +57,19 @@ void dae::GameObject::Update()
 	}
 }
 
-dae::GameObject::GameObject()
-	:m_ID{m_GameObjectIdCounter}
+void dae::GameObject::Start()
 {
+	for (auto& element : m_Components)
+	{
+		if (element.second->m_Enabled)
+			element.second->Start();
+	}
+}
+
+dae::GameObject::GameObject()
+{
+	m_ID = m_GameObjectIdCounter;
+	m_GameObjectIdCounter++;
 }
 
 dae::GameObject::GameObject(const std::string& name)
