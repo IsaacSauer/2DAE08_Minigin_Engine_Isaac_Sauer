@@ -33,8 +33,7 @@ namespace dae
 
 		static unsigned int m_SceneIdCounter;
 
-		std::mutex m_CreateSceneMutex;
-		std::mutex m_SetActiveSceneMutex;
+		mutable std::mutex m_AccessScenesMutex;
 	};
 
 	//Macros

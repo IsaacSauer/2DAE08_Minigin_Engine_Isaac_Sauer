@@ -1,8 +1,8 @@
-#include "Minigin.h"
+#include "QBertGame.h"
 
 int main(int, char* [])
 {
-	dae::Minigin engine;
+	QBertGame engine;
 	engine.Run();
 	return 0;
 }

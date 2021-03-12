@@ -9,6 +9,9 @@ using namespace dae;
 
 std::shared_ptr<GameObject> Scene::GetObjectById(UINT id) const
 {
+	std::lock_guard<std::mutex> guard(m_AccessObjectsMutex);
+	START_MEASUREMENT();
+
 	const auto result = m_Objects.find(id);
 	if(result == m_Objects.end())
 	{
@@ -20,7 +23,7 @@ std::shared_ptr<GameObject> Scene::GetObjectById(UINT id) const
 
 std::shared_ptr<GameObject> Scene::CreateGameObjectInScene(const std::string& name)
 {
-	std::lock_guard<std::mutex> guard(m_AddObjectMutex);
+	std::lock_guard<std::mutex> guard(m_AccessObjectsMutex);
 	START_MEASUREMENT();
 
 	auto go = std::make_shared<GameObject>(name);

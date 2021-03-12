@@ -9,7 +9,7 @@ unsigned int dae::SceneManager::m_SceneIdCounter = 0;
 
 void dae::SceneManager::SetActiveScene(UINT sceneID)
 {
-	std::lock_guard<std::mutex> guard(m_SetActiveSceneMutex);
+	std::lock_guard<std::mutex> guard(m_AccessScenesMutex);
 	START_MEASUREMENT();
 
 	const auto foundScene = GetSceneById(sceneID);
@@ -24,6 +24,9 @@ void dae::SceneManager::SetActiveScene(UINT sceneID)
 
 std::shared_ptr<dae::Scene> dae::SceneManager::GetSceneByName(const std::string& name) const
 {
+	std::lock_guard<std::mutex> guard{ m_AccessScenesMutex };
+	START_MEASUREMENT();
+
 	const auto foundScene = std::find_if(m_Scenes.begin(), m_Scenes.end(),
 		[&name](const std::pair<UINT, std::shared_ptr<Scene>>& A)
 		{ return A.second->GetName() == name; });
@@ -39,6 +42,7 @@ std::shared_ptr<dae::Scene> dae::SceneManager::GetSceneByName(const std::string&
 
 std::shared_ptr<dae::Scene> dae::SceneManager::GetSceneById(UINT id) const
 {
+
 	const auto requested = m_Scenes.find(id);
 	if (requested == m_Scenes.end())
 	{
@@ -50,6 +54,9 @@ std::shared_ptr<dae::Scene> dae::SceneManager::GetSceneById(UINT id) const
 
 UINT dae::SceneManager::GetIdByName(const std::string& name) const
 {
+	std::lock_guard<std::mutex> guard(m_AccessScenesMutex);
+	START_MEASUREMENT();
+
 	const auto foundScene = std::find_if(m_Scenes.begin(), m_Scenes.end(),
 		[&name](const std::pair<UINT, std::shared_ptr<Scene>>& A)
 		{ return A.second->GetName() == name; });
@@ -85,7 +92,7 @@ void dae::SceneManager::Render() const
 
 dae::Scene& dae::SceneManager::CreateScene(const std::string& name, bool setAsActive)
 {
-	std::lock_guard<std::mutex> guard(m_CreateSceneMutex);
+	std::lock_guard<std::mutex> guard(m_AccessScenesMutex);
 	START_MEASUREMENT();
 
 	const auto& scene = std::shared_ptr<Scene>(new Scene(name, m_SceneIdCounter));

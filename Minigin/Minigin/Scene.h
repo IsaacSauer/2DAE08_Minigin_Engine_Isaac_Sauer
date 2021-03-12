@@ -8,7 +8,6 @@ namespace dae
 	{
 		friend Scene& SceneManager::CreateScene(const std::string& name, bool setAsActive);
 	public:
-		void Add(const std::shared_ptr<GameObject>& object);
 
 		void FixedUpdate();
 		void Update();
@@ -28,6 +27,9 @@ namespace dae
 
 		std::shared_ptr<GameObject> CreateGameObjectInScene(const std::string& name);
 	private: 
+		void Add(const std::shared_ptr<GameObject>& object);
+
+
 		explicit Scene(const std::string& name, UINT id);
 
 		std::string m_Name{};
@@ -36,7 +38,7 @@ namespace dae
 
 		UINT m_SceneID{};
 
-		std::mutex m_AddObjectMutex{};
+		mutable std::mutex m_AccessObjectsMutex{};
 	};
 
 }
